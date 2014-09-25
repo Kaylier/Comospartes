@@ -43,18 +43,11 @@ Coord<T> operator-() const
    return res;
 }
 template<int T>
-Coord<T> operator*(const Coord<T>& v) const
+double operator*(const Coord<T>& v) const
 {
-   Coord<T> res(*this);
-   // TODO
-   return res;
-}
-template<int T>
-Coord<T> operator/(const Coord<T>& v) const
-{
-   Coord<T> res(*this);
+   double res=0;
    for (int i=0 ; i < T ; ++i)
-      res.val[i] /= v[i];
+      res += val[i] * v.val[i];
    return res;
 }
 template<int T>
@@ -148,19 +141,6 @@ Coord<T>& operator-=(const Coord<T> v)
    return *this;
 }
 template<int T>
-Coord<T>& operator*=(const Coord<T> v)
-{
-   // TODO
-   return *this;
-}
-template<int T>
-Coord<T>& operator/=(const Coord<T> v)
-{
-   for (int i=0 ; i < T ; ++i)
-      val[i] /= v.val[i];
-   return *this;
-}
-template<int T>
 Coord<T>& operator*=(double i)
 {
    for (int i=0 ; i < T ; ++i)
@@ -225,7 +205,7 @@ Coord<T>& rotate(const Coord<T>& axe, double angle)
    return *this;
 }
 template<int T>
-Coord<T>& invert()
+Coord<T>& rotate(const Coord<T>& vecteur_rotation)
 {
    // TODO
    return *this;
@@ -237,14 +217,6 @@ double angle(const Coord<T>& v1, const Coord<T>& v2)
 {
    // TODO
    return 0;
-}
-template<int T>
-double scalaire(const Coord<T>& v1, const Coord<T>& v2)
-{
-   double res=0;
-   for (int i=0 ; i < T ; ++i)
-      res += v1.val[i] * v2.val[i]
-   return res;
 }
 template<int T>
 Coord<T> unit(int i)

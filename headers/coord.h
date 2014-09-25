@@ -19,8 +19,7 @@ public:
    Coord<T> operator+(const Coord<T>& v) const;
    Coord<T> operator-(const Coord<T>& v) const;
    Coord<T> operator-() const; // renvoi le négatif
-   Coord<T> operator*(const Coord<T>& v) const;
-   Coord<T> operator/(const Coord<T>& v) const;
+   double operator*(const Coord<T>& v) const; // produit scalaire...
    Coord<T> operator*(double i) const;
    Coord<T> operator/(double i) const;
    Coord<3> operator^(const Coord<3>& v) const; // normalement xor, peut etre traité en produit vectoriel
@@ -37,8 +36,6 @@ public:
    Coord<T>& operator=(const Coord<T> v);
    Coord<T>& operator+=(const Coord<T> v);
    Coord<T>& operator-=(const Coord<T> v);
-   Coord<T>& operator*=(const Coord<T> v);
-   Coord<T>& operator/=(const Coord<T> v);
    Coord<T>& operator*=(double i);
    Coord<T>& operator/=(double i);
    Coord<3>& operator^=(const Coord<3> v);
@@ -47,15 +44,14 @@ public:
 
    double norme() const;
    double norme2() const; // norme au carré, en cas de besoins pour éviter trop de calcul
-   Coord<T> normalized() const; // vecteur unitaire de même direction
+   Coord<T> normalized() const; // renvoi le vecteur unitaire de même direction
 
-   Coord<T>& normalize();
+   Coord<T>& normalize(); // *this = this->normalized
    Coord<T>& rotate(const Coord<T>& axe, double angle);
-   Coord<T>& invert();
+   Coord<T>& rotate(const Coord<T>& vecteur_rotation);
 
    static double angle(const Coord<T>& v1, const Coord<T>& v2);
-   static double scalaire(const Coord<T>& v1, const Coord<T>& v2); // produit scalaire
-   static Coord<T> unit(int i); // renvoi le vecteur unité sur la ieme dimension
+   static Coord<T> unit(int i=0); // renvoi le vecteur unité sur la ieme dimension
 };
 
 #endif // COORD_H
