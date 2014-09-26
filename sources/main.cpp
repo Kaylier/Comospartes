@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cmath>
 
-#include "systeme_solaire.h"
+#include "../headers/systeme_solaire.h"
 
 int main(int argc, char** argv)
 {
