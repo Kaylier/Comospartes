@@ -20,7 +20,7 @@ struct Planete
    bool fixe;
 };
 
-class System_Solaire
+class Systeme_Solaire
 {
 protected:
    std::vector<Planete*> _planetes;
