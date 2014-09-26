@@ -47,8 +47,8 @@ public:
    Coord<T> normalized() const; // renvoi le vecteur unitaire de même direction
    Coord<T>& normalize(); // *this = this->normalized
 
-   Coord<T>& rotate(const Coord<T>& axe, double angle);
-   Coord<T>& rotate(const Coord<T>& vecteur_rotation);
+   //Coord<T>& rotate(const Coord<T>& axe, double angle);
+   //Coord<T>& rotate(const Coord<T>& vecteur_rotation);
 
    static double angle(const Coord<T>& v1, const Coord<T>& v2);
    static Coord<T> unit(int i=0); // renvoi le vecteur unité sur la ieme dimension

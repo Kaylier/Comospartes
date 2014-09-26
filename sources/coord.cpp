@@ -196,8 +196,8 @@ Coord<T>& normalize()
       val[i] /= norm;
    return *this;
 }
-template<int T>
-Coord<T>& rotate(const Coord<T>& axe, double angle)
+/*template<int T>
+Coord<T>& rotate(const Coord<T>& axe1, double angle)
 {
    // TODO
    return *this;
@@ -207,14 +207,13 @@ Coord<T>& rotate(const Coord<T>& vecteur_rotation)
 {
    // TODO
    return *this;
-}
+}*/
 
 
 template<int T>
 double angle(const Coord<T>& v1, const Coord<T>& v2)
 {
-   // TODO
-   return 0;
+   return acos( 1.operator*(v2) / v1.norme() / v2.norme() );
 }
 template<int T>
 Coord<T> unit(int i)
