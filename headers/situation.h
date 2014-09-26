@@ -1,16 +1,20 @@
+#include <map>
 
-class situation
-{
-  protected:
-  vector<
 
-   std::vector<*Planete
-   *double *Dynamique situation = NULL;
+map<double, map<*Planete, Dynamique>> Situation;
 
 
 
-  public
+
+
+  public:
     Dynamique position (*Planete planete, double temps);
 
 
+};
+
+struct liste
+{
+   *Planete
+   *
 };
