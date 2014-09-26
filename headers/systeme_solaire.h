@@ -31,7 +31,7 @@ protected:
 public:
    Systeme_Solaire();
    ~Systeme_Solaire();
-   
+
    std::vector<Planete*> get_planets();
    Planete* add_planet(Planete* planete);
    Planete* add_planet(std::string nom, double gm, double rayon, bool fixe=false);
@@ -47,5 +47,6 @@ protected: // Fonctions utiles en interne
    Coord<3> getForce(Coord<3> point); // renvoi la force en point (prend tous les astres en compte)
 
 };
+
 
 #endif // SYSTEME_SOLAIRE_H
