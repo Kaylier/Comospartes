@@ -20,7 +20,10 @@ struct Planete
    bool fixe;
 };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> dc46130d9e8c154a93efc90d4ed4f50468298889
 class Systeme_Solaire
 {
 protected:
