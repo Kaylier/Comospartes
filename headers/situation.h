@@ -1,20 +1,17 @@
 #include <map>
 
+class Situation
+   {
+   protected:
+      map<double, map<*Planete, Cinematique>> Position;
+      double pas;
 
-map<double, map<*Planete, Dynamique>> Situation;
+   public:
+      Situation();
+      Situation(double tInital, std::map<Planetes, Cinematique> sitInital);
+      void ajouterTemps(double temps);
 
+   };
 
+double tempsmax (*Situation systeme);
 
-
-
-  public:
-    Dynamique position (*Planete planete, double temps);
-
-
-};
-
-struct liste
-{
-   *Planete
-   *
-};

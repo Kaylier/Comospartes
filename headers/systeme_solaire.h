@@ -5,6 +5,12 @@
 #include <vector>
 #include "coord.h"
 
+struct Cinematique
+{
+ Coord<3> position;
+ Coord<3> vitesse;
+}
+
 struct Dynamique
 {
    Coord<3> position;
