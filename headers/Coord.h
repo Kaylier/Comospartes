@@ -2,6 +2,7 @@
 #define COORD_H
 
 #include <vector>
+#include <cmath>
 
 template<int T>
 class Coord
@@ -15,44 +16,42 @@ public:
    Coord(std::vector<double> v);
    ~Coord();
 
-   Coord<T> operator+(Coord<T> v);
-   Coord<T> operator-(Coord<T> v);
-   Coord<T> operator-(); // renvoi le négatif
-   Coord<T> operator*(Coord<T> v);
-   Coord<T> operator/(Coord<T> v);
-   Coord<T> operator*(double i);
-   Coord<T> operator/(double i);
-   Coord<T> operator^(Coord<T> v); // normalement xor, peut etre traité en produit vectoriel
+   Coord<T> operator+(const Coord<T>& v) const;
+   Coord<T> operator-(const Coord<T>& v) const;
+   Coord<T> operator-() const; // renvoi le négatif
+   double operator*(const Coord<T>& v) const; // produit scalaire...
+   Coord<T> operator*(double i) const;
+   Coord<T> operator/(double i) const;
+   Coord<3> operator^(const Coord<3>& v) const; // normalement xor, peut etre traité en produit vectoriel
 
-   bool operator==(Coord<T> v);
-   bool operator=!(Coord<T> v);
-   bool operator<(Coord<T> v); // a traiter en tant que norme
-   bool operator>(Coord<T> v);
-   bool operator<=(Coord<T> v);
-   bool operator>=(Coord<T> v);
+   bool operator==(const Coord<T>& v) const;
+   bool operator!=(const Coord<T>& v) const;
+   bool operator<(const Coord<T>& v) const; // a traiter en tant que norme
+   bool operator>(const Coord<T>& v) const;
+   bool operator<=(const Coord<T>& v) const;
+   bool operator>=(const Coord<T>& v) const;
 
-   bool operator!();
+   bool operator!() const;
    
-   Coord<T>& operator=(Coord<T> v);
-   Coord<T>& operator+=(Coord<T> v);
-   Coord<T>& operator-=(Coord<T> v);
-   Coord<T>& operator*=(Coord<T> v);
-   Coord<T>& operator/=(Coord<T> v);
+   Coord<T>& operator=(const Coord<T> v);
+   Coord<T>& operator+=(const Coord<T> v);
+   Coord<T>& operator-=(const Coord<T> v);
    Coord<T>& operator*=(double i);
    Coord<T>& operator/=(double i);
-   Coord<T>& operator^=(Coord<T> v);
+   Coord<3>& operator^=(const Coord<3> v);
    
-   double& operator[](int i);
+   double operator[](int i) const;
 
-   double norme();
-   Coord<T> normalized(); // vecteur unitaire de même direction
+   double norme() const;
+   double norme2() const; // norme au carré, en cas de besoins pour éviter trop de calcul
+   Coord<T> normalized() const; // renvoi le vecteur unitaire de même direction
 
-   Coord<T>& normalize();
-   Coord<T>& rotate(Coord<T> axe, double angle);
+   Coord<T>& normalize(); // *this = this->normalized
+   Coord<T>& rotate(const Coord<T>& axe, double angle);
+   Coord<T>& rotate(const Coord<T>& vecteur_rotation);
 
-   static double angle(Coord<T> v1, Coord<T> v2);
-   static double scalaire(Coord<T> v1, Coord<T> v2); // produit scalaire
-   static Coord<T> unit(int i); // renvoi le vecteur unité sur la ieme dimension
+   static double angle(const Coord<T>& v1, const Coord<T>& v2);
+   static Coord<T> unit(int i=0); // renvoi le vecteur unité sur la ieme dimension
 };
 
 #endif // COORD_H
