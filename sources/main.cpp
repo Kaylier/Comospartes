@@ -19,7 +19,7 @@ int main(int argc, char** argv)
    system.add_planet("Neptune", 6835107               , 24342);
    
 
-   std::vector<Dynamique> best_trajectoire_ever = system.optimiser_trajet();
+   //std::vector<Dynamique> best_trajectoire_ever = system.optimiser_trajet();
 
    std::cout << "Lapin" << std::endl;
 	return 0;
