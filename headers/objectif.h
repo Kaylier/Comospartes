@@ -7,6 +7,7 @@ class objectif
      double distance;
 
    public:
+      objectif();
       double operateur()(Dynamique satellite)
 
 
