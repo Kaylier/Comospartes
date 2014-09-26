@@ -6,13 +6,15 @@ class objectif
      double emecanique;
      double distance;
 
-
    public:
       double operateur()(Dynamique satellite)
 
 
 };
+
 double objectif (*Dynamique satellite, *Planete arrivee, *situation sitPlanete, double emeca)
 {
+
+
 
 }
