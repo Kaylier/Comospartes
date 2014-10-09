@@ -1,23 +1,25 @@
 #include "../headers/coord.h"
 
 template<int T>
-Coord::Coord()
-{}
-template<int T>
-Coord::Coord(Coord<T>& v) : val(v.val)
-{}
-template<int T>
-Coord::Coord(std::vector<double> v) : val(v)
+Coord<T>::Coord()
 {
    val.resize(T);
 }
 template<int T>
-Coord::~Coord()
+Coord<T>::Coord(Coord<T>& v) : val(v.val)
+{}
+template<int T>
+Coord<T>::Coord(std::vector<double> v) : val(v)
+{
+   val.resize(T);
+}
+template<int T>
+Coord<T>::~Coord()
 {}
 
 
 template<int T>
-Coord<T> Coord::operator+(const Coord<T>& v) const
+Coord<T> Coord<T>::operator+(const Coord<T>& v) const
 {
    Coord<T> res(*this);
    for (int i=0 ; i < T ; ++i)
@@ -25,7 +27,7 @@ Coord<T> Coord::operator+(const Coord<T>& v) const
    return res;
 }
 template<int T>
-Coord<T> Coord::operator-(const Coord<T>& v) const
+Coord<T> Coord<T>::operator-(const Coord<T>& v) const
 {
    Coord<T> res(*this);
    for (int i=0 ; i < T ; ++i)
@@ -33,7 +35,7 @@ Coord<T> Coord::operator-(const Coord<T>& v) const
    return res;
 }
 template<int T>
-Coord<T> Coord::operator-() const
+Coord<T> Coord<T>::operator-() const
 {
    Coord<T> res(*this);
    for (int i=0 ; i < T ; ++i)
@@ -41,7 +43,7 @@ Coord<T> Coord::operator-() const
    return res;
 }
 template<int T>
-double Coord::operator*(const Coord<T>& v) const
+double Coord<T>::operator*(const Coord<T>& v) const
 {
    double res=0;
    for (int i=0 ; i < T ; ++i)
@@ -49,7 +51,7 @@ double Coord::operator*(const Coord<T>& v) const
    return res;
 }
 template<int T>
-Coord<T> Coord::operator*(double i) const
+Coord<T> Coord<T>::operator*(double i) const
 {
    Coord<T> res(*this);
    for (int i=0 ; i < T ; ++i)
@@ -57,7 +59,7 @@ Coord<T> Coord::operator*(double i) const
    return res;
 }
 template<int T>
-Coord<T> Coord::operator/(double i) const
+Coord<T> Coord<T>::operator/(double i) const
 {
    Coord<T> res(*this);
    for (int i=0 ; i < T ; ++i)
@@ -65,18 +67,18 @@ Coord<T> Coord::operator/(double i) const
    return res;
 }
 template<>
-Coord<3> Coord::operator^(const Coord<3>& v) const
+Coord<3> Coord<3>::operator^(const Coord<3>& v) const
 {
-   std::vector<double> res(3,0);
-   res[0] = val[1] * v.val[2] - val[2] * v.val[1];
-   res[1] = val[2] * v.val[0] - val[0] * v.val[2];
-   res[2] = val[0] * v.val[1] - val[1] * v.val[0];
-   return Coord<3>(res);
+   Coord<3> res;
+   res.val[0] = val[1] * v.val[2] - val[2] * v.val[1];
+   res.val[1] = val[2] * v.val[0] - val[0] * v.val[2];
+   res.val[2] = val[0] * v.val[1] - val[1] * v.val[0];
+   return res;
 }
 
 
 template<int T>
-bool Coord::operator==(const Coord<T>& v) const
+bool Coord<T>::operator==(const Coord<T>& v) const
 {
    bool res = true;
    for (int i=0 ; i < T && res; ++i)
@@ -84,40 +86,40 @@ bool Coord::operator==(const Coord<T>& v) const
    return res;
 }
 template<int T>
-bool Coord::operator!=(const Coord<T>& v) const
+bool Coord<T>::operator!=(const Coord<T>& v) const
 {
    return not operator==(v);
 }
 template<int T>
-bool Coord::operator<(const Coord<T>& v) const
+bool Coord<T>::operator<(const Coord<T>& v) const
 {
    return norme() < v.norme();
 }
 template<int T>
-bool Coord::operator>(const Coord<T>& v) const
+bool Coord<T>::operator>(const Coord<T>& v) const
 {
    return norme() > v.norme();
 }
 template<int T>
-bool Coord::operator<=(const Coord<T>& v) const
+bool Coord<T>::operator<=(const Coord<T>& v) const
 {
    return norme() <= v.norme();
 }
 template<int T>
-bool Coord::operator>=(const Coord<T>& v) const
+bool Coord<T>::operator>=(const Coord<T>& v) const
 {
    return norme() >= v.norme();
 }
 
 template<int T>
-bool Coord::operator!() const
+bool Coord<T>::operator!() const
 {
    return norme() == 0;
 }
 
 
 template<int T>
-Coord<T>& Coord::operator=(const Coord<T> v)
+Coord<T>& Coord<T>::operator=(const Coord<T> v)
 {
    bool res = true;
    for (int i=0 ; i < T && res; ++i)
@@ -125,49 +127,53 @@ Coord<T>& Coord::operator=(const Coord<T> v)
    return *this;
 }
 template<int T>
-Coord<T>& Coord::operator+=(const Coord<T> v)
+Coord<T>& Coord<T>::operator+=(const Coord<T> v)
 {
    for (int i=0 ; i < T ; ++i)
       val[i] += v.val[i];
    return *this;
 }
 template<int T>
-Coord<T>& Coord::operator-=(const Coord<T> v)
+Coord<T>& Coord<T>::operator-=(const Coord<T> v)
 {
    for (int i=0 ; i < T ; ++i)
       val[i] -= v.val[i];
    return *this;
 }
 template<int T>
-Coord<T>& Coord::operator*=(double i)
+Coord<T>& Coord<T>::operator*=(double i)
 {
    for (int i=0 ; i < T ; ++i)
       val[i] *= i;
    return *this;
 }
 template<int T>
-Coord<T>& Coord::operator/=(double i)
+Coord<T>& Coord<T>::operator/=(double i)
 {
    for (int i=0 ; i < T ; ++i)
       val[i] /= i;
    return *this;
 }
 template<>
-Coord<3>& Coord::operator^=(const Coord<3> v)
+Coord<3>& Coord<3>::operator^=(const Coord<3> v)
 {
-   return operator=(operator^(v));
+   Coord<3> t(*this);
+   val[0] = t.val[1] * v.val[2] - t.val[2] * v.val[1];
+   val[1] = t.val[2] * v.val[0] - t.val[0] * v.val[2];
+   val[2] = t.val[0] * v.val[1] - t.val[1] * v.val[0];
+   return *this;
 }
 
 
 template<int T>
-double Coord::operator[](int i) const
+double Coord<T>::operator[](int i) const
 {
    return (i<T)? val[i] : 0;
 }
 
 
 template<int T>
-double Coord::norme() const
+double Coord<T>::norme() const
 {
    double res=0;
    for (int i=0 ; i < T ; ++i)
@@ -175,7 +181,7 @@ double Coord::norme() const
    return sqrt(res);
 }
 template<int T>
-double Coord::norme2() const
+double Coord<T>::norme2() const
 {
    double res=0;
    for (int i=0 ; i < T ; ++i)
@@ -183,12 +189,12 @@ double Coord::norme2() const
    return res;
 }
 template<int T>
-Coord<T> Coord::normalized() const
+Coord<T> Coord<T>::normalized() const
 {
    return Coord<T>(*this).normalize();
 }
 template<int T>
-Coord<T>& Coord::normalize()
+Coord<T>& Coord<T>::normalize()
 {
    double norm = norme();
    for (int i=0 ; i < T ; ++i)
@@ -196,13 +202,13 @@ Coord<T>& Coord::normalize()
    return *this;
 }
 /*template<int T>
-Coord<T>& Coord::rotate(const Coord<T>& axe1, double angle)
+Coord<T>& Coord<T>::rotate(const Coord<T>& axe1, double angle)
 {
    // TODO
    return *this;
 }
 template<int T>
-Coord<T>& Coord::rotate(const Coord<T>& vecteur_rotation)
+Coord<T>& Coord<T>::rotate(const Coord<T>& vecteur_rotation)
 {
    // TODO
    return *this;
@@ -210,12 +216,12 @@ Coord<T>& Coord::rotate(const Coord<T>& vecteur_rotation)
 
 
 template<int T>
-double Coord::angle(const Coord<T>& v1, const Coord<T>& v2)
+double Coord<T>::angle(const Coord<T>& v1, const Coord<T>& v2)
 {
    return acos( v1.operator*(v2) / v1.norme() / v2.norme() );
 }
 template<int T>
-Coord<T> Coord::unit(int i)
+Coord<T> Coord<T>::unit(int i)
 {
    std::vector<double> v(T,0);
    if (i < T)
