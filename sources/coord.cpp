@@ -1,11 +1,10 @@
 #include "../headers/coord.h"
 
-using namespace Coord;
 template<int T>
 Coord::Coord()
 {}
 template<int T>
-Coord::oord(Coord<T>& v) : val(v.val)
+Coord::Coord(Coord<T>& v) : val(v.val)
 {}
 template<int T>
 Coord::Coord(std::vector<double> v) : val(v)
@@ -213,7 +212,7 @@ Coord<T>& Coord::rotate(const Coord<T>& vecteur_rotation)
 template<int T>
 double Coord::angle(const Coord<T>& v1, const Coord<T>& v2)
 {
-   return acos( 1.operator*(v2) / v1.norme() / v2.norme() );
+   return acos( v1.operator*(v2) / v1.norme() / v2.norme() );
 }
 template<int T>
 Coord<T> Coord::unit(int i)
