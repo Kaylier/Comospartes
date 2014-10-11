@@ -15,14 +15,12 @@
  *  Loin, elle doit pointer vers la cible
  *
  * Ainsi : 
- *  Objectif(Em, r, tau) = (facteur_Em_proche(Em-emec) + facteur_Em_lointain(r)) * 
- *                         (facteur_direction_proche(v) + facteur_direction_lointain(v)) * 
+ *  Objectif(Em, r, tau) = facteur_Em(Em-emec) * 
+ *                         facteur_vradial(v) * 
  *                         facteur_temps(t/tau_temps)
  *       où facteur_temps : t-> (1+t+t²/2+t³/6)*e^(-t)   (c'est une courbe cool de 1 à 0!)
- *        , facteur_Em_proche : dE -> e^(-dE²/tau_emecanique²)
- *        (, facteur_Em_lointain : r -> -r/tau_distance / (1 + 10*tau_distance/r) ) faut voir pour celui la...
- *        , facteur_direction_proche : v -> ???
- *        , facteur_direction_lointain : v -> ??? v*OM (prdt scalaire, OM=vecteur cible-objet)
+ *        , facteur_Em : dE -> e^(-dE²/tau_emecanique²)
+ *        , facteur_vradial : v -> e^(-(1-vr/(r^a-distance^a))²)
  */
 class Planete;
 
@@ -30,10 +28,12 @@ class Objectif
 {
 protected:
    Planete *ancre;
-   double emecanique;
-   double distance;
-   double tau_emecanique;
-   double tau_distance;
+   // parametrage de l'etat idéal
+   double emecanique; // Em ideal
+   double distance; // distance ideale
+   // paramétrage de la tolérance de selection
+   double tau_emecanique; // gere la décroissante exp de l'Em
+   double alpha_distance; // gere le rapport entre la vitesse radiale et la distance
    double tau_temps; // constante de temps
 
 public:
@@ -44,11 +44,6 @@ public:
 
 };
 
-double objectif (*Dynamique satellite, *Planete arrivee, *situation sitPlanete, double emeca)
-{
 
+#endif // OBJECTIF_H
 
-
-}
-
-#endif // SYSTEME_SOLAIRE_H
