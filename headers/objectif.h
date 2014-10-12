@@ -20,27 +20,34 @@
  *                         facteur_temps(t/tau_temps)
  *       où facteur_temps : t-> (1+t+t²/2+t³/6)*e^(-t)   (c'est une courbe cool de 1 à 0!)
  *        , facteur_Em : dE -> e^(-dE²/tau_emecanique²)
- *        , facteur_vradial : v -> e^(-(1-vr/(r^a-distance^a))²)
+ *        , facteur_vradial : v -> 1-alpha + alpha*e^(-(vr - r + distance)²/(r*r+1))
  */
 class Planete;
 
 class Objectif
 {
 protected:
-   Planete *ancre;
+   Planete *_ancre;
    // parametrage de l'etat idéal
-   double emecanique; // Em ideal
-   double distance; // distance ideale
+   double _emecanique; // Em ideal
+   unsigned double _distance; // distance ideale
    // paramétrage de la tolérance de selection
-   double tau_emecanique; // gere la décroissante exp de l'Em
-   double alpha_distance; // gere le rapport entre la vitesse radiale et la distance
-   double tau_temps; // constante de temps
+   unsigned double _tau_em; // gere la décroissante exp de l'Em
+   unsigned double _alpha_dist; // gere l'importance du facteur radial (entre 0 et 1)
+   unsigned double _tau_temps; // constante de temps
 
 public:
    Objectif();
+   Objectif(Planete* ancre);
+   Objectif(Planete* ancre, double Em, unsigned double distance=0);
    ~Objectif();
 
-   double operateur()(Dynamique satellite)
+   Planete* getAncre();
+   void definir(Planete* ancre, double Em, unsigned double distance=0);
+   void definir(Planete* ancre, Dynamique ref);
+   void parametrer(unsigned double tau_em, unsigned double alpha_dist, unsigned double tau_temps);
+
+   double operator()(Dynamique satellite);
 
 };
 
