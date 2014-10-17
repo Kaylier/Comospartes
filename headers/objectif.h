@@ -13,9 +13,4 @@ class objectif
 
 };
 
-double objectif (*Dynamique satellite, *Planete arrivee, *situation sitPlanete, double emeca)
-{
 
-
-
-}
