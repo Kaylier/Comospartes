@@ -17,6 +17,10 @@ Objectif::~Objectif()
 {}
 
 
+Planete* Objectif::getAncre()
+{
+   return _ancre;
+}
 void Objectif::definir(Planete* ancre, double Em, unsigned double distance)
 {
    _ancre = ancre;
@@ -25,7 +29,10 @@ void Objectif::definir(Planete* ancre, double Em, unsigned double distance)
 }
 void Objectif::definir(Planete* ancre, Dynamique ref)
 {
-   // TODO
+   _ancre = ancre;
+   double v2 = ref.vitesse.norm2(); // *10^3/24/3600; pour convertion en m/s
+   _emecanique = v2 /2 - ancre->gm / (ref.position - situation.getCinem(ancre, ref.temps)).norme();
+   _distance = ancre->gm / v2;
 }
 void Objectif::parametrer(unsigned double tau_em, unsigned double alpha_dist, unsigned double tau_temps)
 {
@@ -35,9 +42,9 @@ void Objectif::parametrer(unsigned double tau_em, unsigned double alpha_dist, un
 }
 
 
-double Objectif::operator()
+double Objectif::operator()(Dynamique satellite)
 {
-   return 0;
+   return 2.71^(-( (satellite.vitesse.norme2()/2 - ancre->gm/(satellite.position - situation.getCinem(ancre, satellite.temps)).norme()) / _tau_em )^2);
 }
 
 

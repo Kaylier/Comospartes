@@ -7,15 +7,15 @@
 
 struct Cinematique
 {
- Coord<3> position;
- Coord<3> vitesse;
+   Coord<3> position;
+   Coord<3> vitesse;
 };
 
 struct Dynamique
 {
    Coord<3> position;
    Coord<3> vitesse;
-   double temp;
+   double temps;
 };
 
 struct Planete
@@ -30,9 +30,9 @@ class Systeme_Solaire
 {
 protected:
    std::vector<Planete*> _planetes;
-   // _positions_planetes; // une super classe gérant synchro avec base de donnée, calcul de position... à la demande !
+   Situation _situation;
    Planete* _depart;
-   // _objectif; // fonction evaluant la proximité de l'objectif
+   Objectif _objectif;
 
 public:
    Systeme_Solaire();
@@ -47,11 +47,6 @@ public:
 
    double estimer_trajectoire(Dynamique condition_initiale);
    std::vector<Dynamique> optimiser_trajet(Dynamique condition_initiale); // cherche la meilleure trajectoire (condition_initiale est la base de la recherche)
-
-protected: // Fonctions utiles en interne
-   Coord<3> getForce(Coord<3> point, Planete astre); // renvoi la force d'un astre en un point
-   Coord<3> getForce(Coord<3> point); // renvoi la force en point (prend tous les astres en compte)
-
 };
 
 

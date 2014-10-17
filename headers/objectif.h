@@ -27,7 +27,8 @@ class Planete;
 class Objectif
 {
 protected:
-   Planete *_ancre;
+   Planete* _ancre;
+   Situation* situation;
    // parametrage de l'etat idéal
    double _emecanique; // Em ideal
    unsigned double _distance; // distance ideale
@@ -47,7 +48,7 @@ public:
    void definir(Planete* ancre, Dynamique ref);
    void parametrer(unsigned double tau_em, unsigned double alpha_dist, unsigned double tau_temps);
 
-   double operator()(Dynamique satellite);
+   double operator()(Dynamique satellite); // renvoi l'indice 
 
 };
 
