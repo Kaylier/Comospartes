@@ -44,7 +44,13 @@ void Objectif::parametrer(unsigned double tau_em, unsigned double alpha_dist, un
 
 double Objectif::operator()(Dynamique satellite)
 {
-   return 2.71^(-( (satellite.vitesse.norme2()/2 - ancre->gm/(satellite.position - situation.getCinem(ancre, satellite.temps)).norme()) / _tau_em )^2);
+   double vr = (satellite.position - situation.getCinem(ancre, satellite.temps)) * satellite.vitesse;
+   double r = (satellite.position - situation.getCinem(ancre, satellite.temps)).norme();
+   double em = satellite.vitesse.norme2()/2 - ancre->gm/r;
+   double t = satellite.temps/_tau_temps;
+   return 2.71^(-((em-_emecanique)/_tau_em)^2) // facteur Em
+       *  (1+t+t^2/2+t^3/6)*2.71^(-t) // facteur temps
+       *  (1-_alpha_dist + alpha*2.71^(-(vr-r+_distance)/(r*r+1)) ); // facteur v radial 
 }
 
 
