@@ -9,7 +9,7 @@ struct Cinematique
 {
  Coord<3> position;
  Coord<3> vitesse;
-}
+};
 
 struct Dynamique
 {

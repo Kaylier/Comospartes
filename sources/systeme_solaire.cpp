@@ -22,7 +22,7 @@ Planete* Systeme_Solaire::add_planet(Planete* planete)
    _planetes.push_back(planete);
    return planete;
 }
-Planete* Systeme_Solaire::add_planet(std::string nom, double gm, double rayon, bool fixe=false)
+Planete* Systeme_Solaire::add_planet(std::string nom, double gm, double rayon, bool fixe)
 {
    Planete* planete = new Planete;
    planete->nom = nom;
@@ -38,7 +38,7 @@ Planete* Systeme_Solaire::add_depart(Planete* planete)
    _depart = planete;
    return planete;
 }
-Planete* Systeme_Solaire::add_depart(std::string nom, double gm, double rayon, bool fixe=false)
+Planete* Systeme_Solaire::add_depart(std::string nom, double gm, double rayon, bool fixe)
 {
    Planete* planete = new Planete;
    planete->nom = nom;
@@ -51,10 +51,10 @@ Planete* Systeme_Solaire::add_depart(std::string nom, double gm, double rayon, b
 }
 void Systeme_Solaire::rmPlanet(Planete* planete)
 {
-   for (int i=0 ; i < planete.size() ; ++i)
-      if (_planete[i] == planete)
+   for (int i=0 ; i < _planetes.size() ; ++i)
+      if (_planetes[i] == planete)
       {
-         _planete.erase(_planete.begin()+i);
+         _planetes.erase(_planetes.begin()+i);
          i--;
       }
 }
