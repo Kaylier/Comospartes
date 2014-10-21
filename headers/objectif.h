@@ -1,6 +1,3 @@
-#ifndef OBJECTIF_H
-#define OBJECTIF_H
-
 /* Explication rapide :
  *  Une orbite autours d'un astre est d'equation (polaire) r = p / (1+e*cos(angle))
  *  On visera une orbite circulaire, donc e=0
@@ -22,7 +19,11 @@
  *        , facteur_Em : dE -> e^(-dE²/tau_emecanique²)
  *        , facteur_vradial : v -> 1-alpha + alpha*e^(-(vr - r + distance)²/(r*r+1))
  */
-class Planete;
+#ifndef OBJECTIF_H
+#define OBJECTIF_H
+
+#include "structs.h"
+#include "situation.h"
 
 class Objectif
 {
@@ -31,22 +32,22 @@ protected:
    Situation* situation;
    // parametrage de l'etat idéal
    double _emecanique; // Em ideal
-   unsigned double _distance; // distance ideale
+   double _distance; // distance ideale
    // paramétrage de la tolérance de selection
-   unsigned double _tau_em; // gere la décroissante exp de l'Em
-   unsigned double _alpha_dist; // gere l'importance du facteur radial (entre 0 et 1)
-   unsigned double _tau_temps; // constante de temps
+   double _tau_em; // gere la décroissante exp de l'Em
+   double _alpha_dist; // gere l'importance du facteur radial (entre 0 et 1)
+   double _tau_temps; // constante de temps
 
 public:
    Objectif();
    Objectif(Planete* ancre);
-   Objectif(Planete* ancre, double Em, unsigned double distance=0);
+   Objectif(Planete* ancre, double Em, double distance=0);
    ~Objectif();
 
    Planete* getAncre();
-   void definir(Planete* ancre, double Em, unsigned double distance=0);
+   void definir(Planete* ancre, double Em, double distance=0);
    void definir(Planete* ancre, Dynamique ref);
-   void parametrer(unsigned double tau_em, unsigned double alpha_dist, unsigned double tau_temps);
+   void parametrer(double tau_em, double alpha_dist, double tau_temps);
 
    double operator()(Dynamique satellite); // renvoi l'indice 
 
