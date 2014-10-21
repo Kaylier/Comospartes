@@ -22,6 +22,7 @@
 #ifndef OBJECTIF_H
 #define OBJECTIF_H
 
+#include <cmath>
 #include "structs.h"
 #include "situation.h"
 
@@ -44,13 +45,16 @@ public:
    Objectif(Planete* ancre, double Em, double distance=0);
    ~Objectif();
 
-   Planete* getAncre();
+   Planete* getAncre() const;
    void definir(Planete* ancre, double Em, double distance=0);
    void definir(Planete* ancre, Dynamique ref);
    void parametrer(double tau_em, double alpha_dist, double tau_temps);
 
-   double operator()(Dynamique satellite); // renvoi l'indice 
+   double operator()(Dynamique satellite) const; // renvoi l'indice 
 
+   static double meilleur(double a, double b);
+   static double meilleur_indice();
+   static double pire_indice();
 };
 
 

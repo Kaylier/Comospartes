@@ -17,7 +17,7 @@ Objectif::~Objectif()
 {}
 
 
-Planete* Objectif::getAncre()
+Planete* Objectif::getAncre() const
 {
    return _ancre;
 }
@@ -42,7 +42,7 @@ void Objectif::parametrer(double tau_em, double alpha_dist, double tau_temps)
 }
 
 
-double Objectif::operator()(Dynamique satellite)
+double Objectif::operator()(Dynamique satellite) const
 {
    Cinematique planete = situation->getCinem(ancre, satellite.temps).position;
    double vr = (satellite.position - planete.position) // le vecteur planete-satellite 
@@ -54,6 +54,19 @@ double Objectif::operator()(Dynamique satellite)
    return pow(2.71, - dem*dem/_tau_em/_tau_em) // facteur Em
        *  (1+t+t*t/2+t*t*t/6)*pow(2.71, -t) // facteur temps
        *  (1-_alpha_dist + _alpha_dist*pow(2.71, (-(vr-r+_distance)/(r*r+1))) ); // facteur v radial 
+}
+
+double Objectif::meilleur(double a, double b)
+{
+   return (a > b)? a : b;
+}
+double Objectif::meilleur_indice()
+{
+   return 1;
+}
+double Objectif::pire_indice()
+{
+   return 0;
 }
 
 

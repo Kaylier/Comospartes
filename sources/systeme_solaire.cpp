@@ -59,4 +59,15 @@ void Systeme_Solaire::rmPlanet(Planete* planete)
       }
 }
 
+double Systeme_Solaire::estimer_trajectoire(Dynamique condition_initiale)
+{
+   double best_indice=_objectif.pire_indice();
+   
+   while (true)
+   {
+      // calcule la dynamique suivante en prenant en compte les astres proches
+   }
+   return best_indice;
+}
+
 

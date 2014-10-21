@@ -15,6 +15,7 @@ protected:
    std::vector<Planete*> _planetes;
    Situation _situation;
    Planete* _depart;
+public:
    Objectif _objectif;
 
 public:
