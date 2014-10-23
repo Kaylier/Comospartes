@@ -2,6 +2,7 @@
  *  Une orbite autours d'un astre est d'equation (polaire) r = p / (1+e*cos(angle))
  *  On visera une orbite circulaire, donc e=0
  *  et de rayon fixé p
+ *  mais en fait osef...
  *  L'energie mecanique sur l'ellipse est constante, 
  *          Em/m = 1/2*v² - GM/r
  *  On va donc essayer de la rapprocher au max d'une energie ref
@@ -18,6 +19,26 @@
  *       où facteur_temps : t-> (1+t+t²/2+t³/6)*e^(-t)   (c'est une courbe cool de 1 à 0!)
  *        , facteur_Em : dE -> e^(-dE²/tau_emecanique²)
  *        , facteur_vradial : v -> 1-alpha + alpha*e^(-(vr - r + distance)²/(r*r+1))
+ *
+ *
+ * AUTRE RAISONNEMENT : 
+ * dans le ref de l'astre en cours, il y a 6 param a prendre en compte : position et vitesse
+ * par invariance par rotation, la position se résume au rayon
+ *                           et la vitesse se résume à une vitesse radiale et une vitesse orthoradiale
+ *          On définira plutot la vitesse par sa composante radiale et sa norme
+ * On se retrouve à 3 paramètres : r, vr et v
+ * r et v permettent de définir Em, qui doit se rapprocher d'une réference
+ * vr ne sert en fait a pas grand chose...
+ *
+ * ainsi, l'indice est calculé par facteur_Em*facteur_temps
+ *   avec
+ *       facteur_Em qui varie de 0 à +inf : dEm=Em-Emref -> 1/dEm²
+ *       facteur_temps qui varie de 1 à 0 :  t/tau -> (1+t+t²/2+t³/6)*e^(-t)
+ *   facteur_temps est optionnel comme on arrete les calculs de toute facons
+ *
+ * DERNIER RAISONEMENT : 
+ *    en fait, chercher a maximiser 1/dEm² revient a minimiser abs(dEm)...
+ *    donc l'indice peut être simplement abs(dEm) avec 0 comme perfect et +inf comme pourris
  */
 #ifndef OBJECTIF_H
 #define OBJECTIF_H
@@ -33,22 +54,16 @@ protected:
    Situation* situation;
    // parametrage de l'etat idéal
    double _emecanique; // Em ideal
-   double _distance; // distance ideale
-   // paramétrage de la tolérance de selection
-   double _tau_em; // gere la décroissante exp de l'Em
-   double _alpha_dist; // gere l'importance du facteur radial (entre 0 et 1)
-   double _tau_temps; // constante de temps
 
 public:
    Objectif();
-   Objectif(Planete* ancre);
-   Objectif(Planete* ancre, double Em, double distance=0);
+   Objectif(Situation* sit, Planete* ancre);
+   Objectif(Situation* sit, Planete* ancre, double Em);
    ~Objectif();
 
    Planete* getAncre() const;
-   void definir(Planete* ancre, double Em, double distance=0);
+   void definir(Planete* ancre, double Em);
    void definir(Planete* ancre, Dynamique ref);
-   void parametrer(double tau_em, double alpha_dist, double tau_temps);
 
    double operator()(Dynamique satellite) const; // renvoi l'indice 
 
