@@ -1,8 +1,6 @@
 #include "../headers/objectif.h"
 
-Objectif::Objectif() : _ancre(0), 
-                       _emecanique(0), _distance(0), 
-                       _tau_em(1), _alpha_dist(0.7), _tau_temps(1000)
+Objectif::Objectif() : situation(0), _ancre(0), _emecanique(0)
 {}
 Objectif::Objectif(Situation* sit, Planete* ancre) : situation(sit), _ancre(ancre), _emecanique(0)
 {}
@@ -35,7 +33,7 @@ double Objectif::operator()(Dynamique satellite) const
 {
    Cinematique planete = situation->getCinem(ancre, satellite.temps).position;
    double r = (satellite.position - planete.position).norme();
-   double v2 = (ref.vitesse - planete.vitesse).norme2();
+   double v2 = (satellite.vitesse - planete.vitesse).norme2();
    /*
    double vr = (satellite.position - planete.position) // le vecteur planete-satellite 
              * (satellite.vitesse - planete.vitesse); // moins la vitesse de la planete pour se placer dans le ref de la planete
@@ -46,7 +44,7 @@ double Objectif::operator()(Dynamique satellite) const
        *  (1+t+t*t/2+t*t*t/6)*pow(2.71, -t) // facteur temps
        *  (1-_alpha_dist + _alpha_dist*pow(2.71, (-(vr-r+_distance)/(r*r+1))) ); // facteur v radial
    */
-   return abs( v2 /2 - _ancre->gm / r - _emecanique);
+   return std::abs( v2 /2 - _ancre->gm / r - _emecanique);
 }
 
 double Objectif::meilleur(double a, double b)
@@ -59,7 +57,7 @@ double Objectif::meilleur_indice()
 }
 double Objectif::pire_indice()
 {
-   return DBL_MAX;
+   return 10E300;
 }
 
 
