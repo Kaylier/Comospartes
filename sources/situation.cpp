@@ -1,8 +1,12 @@
-Situation::Situation
+#include "../headers/situation.h"
+
+
+Situation::Situation()
 {
 }
-Situation::Situation(double tInital, std::map<Planetes, Cinematique, double pasInit> sitInital): Position[tInitial](sitInitial), pas(pasInit)
+Situation::Situation(double tInitial, std::map<Planete*, Cinematique> sitInitial, double pasInit): pas(pasInit)
 {
+   Position[tInitial]= sitInitial;
 }
 
 void Situation::ajouterTemps(double temps)
@@ -17,13 +21,13 @@ void Situation::ajouterTemps(double temps)
    }
    else
    {
-      for (it=Position.[t]begin(); it!=Position[t].end();it++)
+      for (std::map<Planete*, Cinematique>::iterator it=Position[t].begin(); it!=Position[t].end();it++)
       {
-         *Planete pactuelle = Position[t][it];
+          Planete* pactuelle = it->first;
           Cinematique nouvellecoord;
-          nouvellecoord.position=pactuelle.position+(pactuelle.vitesse*pas);
-          nouvellecoord.vitesse=pactuelle.vitesse+(getForce(pactuelle.position,temps)*pas);
-          Position[temps][it]=nouvellecoord;
+          nouvellecoord.position = Position[t][pactuelle].position+(Position[t][pactuelle].vitesse*pas);
+          nouvellecoord.vitesse = Situation[t][pactuelle].vitesse+(getForce(pactuelle.position,temps)*pas);
+          Position[temps][pactuelle]= nouvellecoord;
       }
    }
 }
@@ -32,7 +36,7 @@ void Situation::ajouterTemps(double temps)
 double Situation::tempsproche (double temps)
 {
    double t=0;
-   for (it=Position.begin(); it!=Position.end(); it++)
+   for (std::map<double, std::map<Planete*, Cinematique> >::iterator it=Position.begin(); it!=Position.end(); it++)
       {
         if ( std::abs(t-temps) > std::abs((it->first)-temps))
             {
@@ -47,7 +51,7 @@ Coord<3> Situation::getForce (Coord<3> objet, double temps)
 {
    Coord<3> VectForce([0,0,0]);
    Coord<3> distance([0,0,0]);
-   for (i;t=Position[temps].begin(); it!Position[temps].end();it++)
+   for (std::map<Planete*, Cinematique>::iterator it=Position[temps].begin(); it!=Position[temps].end();it++)
    {
       distance = (Position[temps][it].position-objet);
       VectForce+=((it.gm*distance.normalize())/distance.norme2());
@@ -55,7 +59,7 @@ Coord<3> Situation::getForce (Coord<3> objet, double temps)
    return VectForce;
 }
 
-Cinematique Situation::getCinem (*Planete planete, double temps)
+Cinematique& Situation::getCinem (Planete planete*, double temps)
 {
    return Position[temps][planete];
 }

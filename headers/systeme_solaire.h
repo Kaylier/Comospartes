@@ -6,8 +6,9 @@
 #include "coord.h"
 #include "structs.h"
 
-#include "situation.h"
+
 #include "objectif.h"
+#include "situation.h"
 
 class Systeme_Solaire
 {

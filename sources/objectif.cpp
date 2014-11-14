@@ -31,11 +31,11 @@ void Objectif::definir(Planete* ancre, Dynamique ref)
 
 double Objectif::operator()(Dynamique satellite) const
 {
-   Cinematique planete = situation->getCinem(ancre, satellite.temps).position;
+   Cinematique planete = situation->getCinem(_ancre, satellite.temps);
    double r = (satellite.position - planete.position).norme();
    double v2 = (satellite.vitesse - planete.vitesse).norme2();
    /*
-   double vr = (satellite.position - planete.position) // le vecteur planete-satellite 
+   double vr = (satellite.position - planete.position) // le vecteur planete-satellite
              * (satellite.vitesse - planete.vitesse); // moins la vitesse de la planete pour se placer dans le ref de la planete
    double dem = satellite.vitesse.norme2()/2 - ancre->gm/r  - _emecanique;
    double t = satellite.temps/_tau_temps;
