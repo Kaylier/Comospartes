@@ -10,6 +10,9 @@
 #include "objectif.h"
 #include "situation.h"
 
+#define TEMPS_MAX 2469807 // correspond au 1er janvier 2050, date limite
+#define TEMPS_MIN 0.04  // le pas temporel minimal en jour julien
+
 class Systeme_Solaire
 {
 protected:
@@ -30,6 +33,7 @@ public:
    Planete* add_depart(std::string nom, double gm, double rayon, bool fixe=false);
    void rmPlanet(Planete* planete);
 
+   Dynamique& actualiser_dynamique(Dynamique& dyn);
    double estimer_trajectoire(Dynamique condition_initiale);
    std::vector<Dynamique> optimiser_trajet(Dynamique condition_initiale); // cherche la meilleure trajectoire (condition_initiale est la base de la recherche)
 };

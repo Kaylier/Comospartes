@@ -6,7 +6,7 @@ Coord<T>::Coord()
    val.resize(T);
 }
 template<int T>
-Coord<T>::Coord(Coord<T>& v) : val(v.val)
+Coord<T>::Coord(const Coord<T>& v) : val(v.val)
 {}
 template<int T>
 Coord<T>::Coord(std::vector<double> v) : val(v)

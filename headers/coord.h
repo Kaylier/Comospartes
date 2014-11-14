@@ -11,7 +11,7 @@ protected:
    std::vector<double> val;
 public:
    Coord();
-   Coord(Coord<T>& v);
+   Coord(const Coord<T>& v);
    Coord(std::vector<double> v);
    ~Coord();
 
