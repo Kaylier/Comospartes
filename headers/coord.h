@@ -54,4 +54,5 @@ public:
    static Coord<T> unit(int i=0); // renvoi le vecteur unité sur la ieme dimension
 
 };
+
 #endif // COORD_H

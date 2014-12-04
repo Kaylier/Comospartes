@@ -229,3 +229,5 @@ Coord<T> Coord<T>::unit(int i)
    return Coord<T>(v);
 }
 
+template class Coord<3>;
+
