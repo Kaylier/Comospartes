@@ -60,7 +60,20 @@ Coord<3> Situation::getForce (Coord<3> objet, double temps)
    return VectForce;
 }
 
-Cinematique& Situation::getCinem (Planete* planete, double temps)
+std::vector < Coord<3> > Situation::getPosis (Planete* planete)
+{
+    std::vector < Coord<3> > vectpos;
+    double t = 0;
+    for (std::map<double, std::map<Planete*, Cinematique> >::iterator it=Position.begin(); it!=Position.end(); it++)
+      {
+       t=it->first;
+       vectpos.push_back(Position[t][planete].position);
+      }
+
+      return vectpos;
+}
+
+Cinematique& Situation::getCinem (Planete* planete, double temps) //Fonction renvoie un vecteur de coord 3 d'une planete
 {
    return Position[temps][planete];
 }
