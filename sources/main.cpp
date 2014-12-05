@@ -2,11 +2,18 @@
 #include <cmath>
 
 #include "../headers/systeme_solaire.h"
+#include "../headers/simple_svg_1.0.0.hpp"
+
+svg::Polyline vector_to_polyline(std::vector<Coord<3> > vect);
 
 int main(int argc, char** argv)
 {
    // Création du systeme
    Systeme_Solaire system;
+   // Génération de svg
+   svg::Document doc("coucou.svg", svg::Layout(svg::Dimensions(1024, 1024), svg::Layout::BottomLeft, 1, svg::Point(512, 512)));
+
+   /*
                    // nom       GM                      rayon       fixe=false
    system.add_planet("Soleil" , 1.3271244004193938e11 , 6.963e5   , true);
    system.add_depart("Terre"  , 398600.440            , 6371.01);
@@ -17,10 +24,24 @@ int main(int argc, char** argv)
    system.add_planet("Saturne", 37931207.8            , 54364);
    system.add_planet("Uranus" , 5793966               , 24973);
    system.add_planet("Neptune", 6835107               , 24342);
+   */
+   Planete* ptest1 = system.add_depart("ptest1", 5e10, 3e5);
    
+   doc << svg::Circle(svg::Point(0,0), 20, svg::Fill(svg::Color(255, 200, 0)));
+   doc << vector_to_polyline(system.get_pos(ptest1));
 
    //std::vector<Dynamique> best_trajectoire_ever = system.optimiser_trajet();
 
+   doc.save();
    std::cout << "Lapin" << std::endl;
 	return 0;
 }
+
+svg::Polyline vector_to_polyline(std::vector<Coord<3> > vect)
+{
+   svg::Polyline res(svg::Stroke(1, svg::Color::White));
+   for(int i=0, n=vect.size() ; i < n ; ++i)
+      res << svg::Point(vect[i][0], vect[i][1]); 
+   return res;
+}
+

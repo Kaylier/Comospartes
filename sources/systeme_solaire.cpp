@@ -9,8 +9,8 @@ Systeme_Solaire::~Systeme_Solaire()
    for (int i=0 ; i < _planetes.size() ; ++i)
       if (_planetes[i])
          delete _planetes[i];
-   if (_depart)
-      delete _depart;
+   //if (_depart)
+   //   delete _depart;
 }
 
 std::vector<Planete*> Systeme_Solaire::get_planets() const
@@ -22,13 +22,12 @@ Planete* Systeme_Solaire::add_planet(Planete* planete)
    _planetes.push_back(planete);
    return planete;
 }
-Planete* Systeme_Solaire::add_planet(std::string nom, double gm, double rayon, bool fixe)
+Planete* Systeme_Solaire::add_planet(std::string nom, double gm, double rayon)
 {
    Planete* planete = new Planete;
    planete->nom = nom;
    planete->gm = gm;
    planete->rayon = rayon;
-   planete->fixe = fixe;
    _planetes.push_back(planete);
    return planete;
 }
@@ -38,13 +37,12 @@ Planete* Systeme_Solaire::add_depart(Planete* planete)
    _depart = planete;
    return planete;
 }
-Planete* Systeme_Solaire::add_depart(std::string nom, double gm, double rayon, bool fixe)
+Planete* Systeme_Solaire::add_depart(std::string nom, double gm, double rayon)
 {
    Planete* planete = new Planete;
    planete->nom = nom;
    planete->gm = gm;
    planete->rayon = rayon;
-   planete->fixe = fixe;
    _planetes.push_back(planete);
    _depart = planete;
    return planete;
@@ -59,6 +57,13 @@ void Systeme_Solaire::rmPlanet(Planete* planete)
       }
 }
 
+
+std::vector<Coord<3> > Systeme_Solaire::get_pos(Planete* planete)
+{
+   return _situation.getPosis(planete);
+}
+
+
 Dynamique& Systeme_Solaire::actualiser_dynamique(Dynamique& dyn)
 {
    Coord<3> force = _situation.getForce(dyn.position, dyn.temps);
@@ -69,6 +74,30 @@ Dynamique& Systeme_Solaire::actualiser_dynamique(Dynamique& dyn)
    dyn.position += dyn.vitesse*dt;
    dyn.temps += dt;
    return dyn;
+}
+
+std::vector<Dynamique> Systeme_Solaire::calculer_trajectoire(Dynamique condition_initiale)
+{
+   /* Fonction qui permet de récupérer une orbite
+    * condition_initiale détermine la dynamique initiale du satellite dans
+    * le référentiel de la planete de départ
+    * (dans la pratique, condition_initiale.position = (0,0,0) )
+    */
+   Dynamique satellite;
+      Cinematique cin_depart = _situation.getCinem(_depart, condition_initiale.temps);
+      satellite.temps = condition_initiale.temps;
+      satellite.position = cin_depart.position + condition_initiale.position;
+      satellite.vitesse = cin_depart.vitesse + condition_initiale.vitesse;
+
+   std::vector<Dynamique> resultat;
+   resultat.push_back(satellite);
+
+   while (satellite.temps < TEMPS_MAX)
+   {
+      actualiser_dynamique(satellite);
+      resultat.push_back(satellite);
+   }
+   return resultat;
 }
 
 double Systeme_Solaire::estimer_trajectoire(Dynamique condition_initiale)
