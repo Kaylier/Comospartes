@@ -13,7 +13,7 @@ class Situation
 
    public:
       Situation();
-      Situation(double tInital, std::map<Planete*, Cinematique> sitInital, double pasInitial);
+      Situation(double tInitial, std::map<Planete*, Cinematique> sitInitial, double pasInit);
       double tempsproche(double temps);
       void ajouterTemps(double temps); //Ajoute l'ensemble des coordonées à un temps voulu
       Coord<3> getForce (Coord<3>, double temps);// Forces s'appliquant en un point

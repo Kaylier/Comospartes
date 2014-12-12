@@ -75,5 +75,11 @@ std::vector < Coord<3> > Situation::getPosis (Planete* planete)
 
 Cinematique& Situation::getCinem (Planete* planete, double temps) //Fonction renvoie un vecteur de coord 3 d'une planete
 {
-   return Position[temps][planete];
+   double t = tempsproche(temps);
+   if (std::abs(t-temps)>pas)
+   {
+      ajouterTemps(t);
+   }
+   return Position[t][planete];
+
 }
