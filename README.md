@@ -23,9 +23,9 @@ Le programme se découpe en plusieurs 'modules' :
 * (Outil) Objet Planete
 * (Outil) Objets Cinématique et Dynamiques
 * Objectif
-
-### Codé et non débugué
 * Situation
+* 
+### Codé et non débugué
 * Fonction de calcul de trajectoire
 
 ### En cours de codage
