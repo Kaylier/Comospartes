@@ -33,6 +33,8 @@ int main(int argc, char** argv)
    system.add_planet("Neptune", 6835107               , 24342);
    */
    
+   // lancer calcul
+
    doc << svg::Circle(svg::Point(0,0), 20, svg::Fill(svg::Color(255, 200, 0)));
    doc << vector_to_polyline(system.get_pos(ptest1));
    doc << vector_to_polyline(system.get_pos(ptest2));
@@ -48,7 +50,7 @@ svg::Polyline vector_to_polyline(std::vector<Coord<3> > vect)
 {
    svg::Polyline res(svg::Stroke(1, svg::Color::White));
    for(int i=0, n=vect.size() ; i < n ; ++i)
-      res << svg::Point(vect[i][0], vect[i][1]); 
+      res << svg::Point(vect[i][0]/10e10, vect[i][1]/10e10); 
    return res;
 }
 

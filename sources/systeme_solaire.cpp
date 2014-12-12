@@ -6,6 +6,8 @@ Systeme_Solaire::Systeme_Solaire()
 }
 Systeme_Solaire::Systeme_Solaire(double tInitial, std::map<Planete*, Cinematique> sitInitial, double pasInitial) : _situation(tInitial, sitInitial, pasInitial)
 {
+   for (std::map<Planete*, Cinematique>::iterator it = sitInitial.begin() ; it != sitInitial.end() ; ++it)
+      _planetes.push_back(it->first);
    _depart = sitInitial.begin()->first;
 }
 Systeme_Solaire::~Systeme_Solaire()
