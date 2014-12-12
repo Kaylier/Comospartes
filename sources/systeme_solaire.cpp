@@ -4,6 +4,10 @@ Systeme_Solaire::Systeme_Solaire()
 {
    _depart = NULL;
 }
+Systeme_Solaire::Systeme_Solaire(double tInitial, std::map<Planete*, Cinematique> sitInitial, double pasInitial) : _situation(tInitial, sitInitial, pasInitial)
+{
+   _depart = sitInitial.begin()->first;
+}
 Systeme_Solaire::~Systeme_Solaire()
 {
    for (int i=0 ; i < _planetes.size() ; ++i)
@@ -17,12 +21,12 @@ std::vector<Planete*> Systeme_Solaire::get_planets() const
 {
    return _planetes;
 }
-Planete* Systeme_Solaire::add_planet(Planete* planete)
+/*Planete* Systeme_Solaire::add_planet(Planete* planete)
 {
    _planetes.push_back(planete);
    return planete;
-}
-Planete* Systeme_Solaire::add_planet(std::string nom, double gm, double rayon)
+}*/
+/*Planete* Systeme_Solaire::add_planet(std::string nom, double gm, double rayon)
 {
    Planete* planete = new Planete;
    planete->nom = nom;
@@ -30,14 +34,14 @@ Planete* Systeme_Solaire::add_planet(std::string nom, double gm, double rayon)
    planete->rayon = rayon;
    _planetes.push_back(planete);
    return planete;
-}
+}*/
 Planete* Systeme_Solaire::add_depart(Planete* planete)
 {
    _planetes.push_back(planete);
    _depart = planete;
    return planete;
 }
-Planete* Systeme_Solaire::add_depart(std::string nom, double gm, double rayon)
+/*Planete* Systeme_Solaire::add_depart(std::string nom, double gm, double rayon)
 {
    Planete* planete = new Planete;
    planete->nom = nom;
@@ -46,8 +50,8 @@ Planete* Systeme_Solaire::add_depart(std::string nom, double gm, double rayon)
    _planetes.push_back(planete);
    _depart = planete;
    return planete;
-}
-void Systeme_Solaire::rmPlanet(Planete* planete)
+}*/
+/*void Systeme_Solaire::rmPlanet(Planete* planete)
 {
    for (int i=0 ; i < _planetes.size() ; ++i)
       if (_planetes[i] == planete)
@@ -55,7 +59,7 @@ void Systeme_Solaire::rmPlanet(Planete* planete)
          _planetes.erase(_planetes.begin()+i);
          i--;
       }
-}
+}*/
 
 
 std::vector<Coord<3> > Systeme_Solaire::get_pos(Planete* planete)
