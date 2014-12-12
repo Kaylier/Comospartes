@@ -11,10 +11,13 @@ Situation::Situation(double tInitial, std::map<Planete*, Cinematique> sitInitial
 
 void Situation::ajouterTemps(double temps)
 {
+      std::cout << "c2" << std::endl;
    double t = tempsproche(temps);
-   if(std::abs(temps-t<pas))
+   std::cout << t << " et " << temps << std::endl;
+   if(std::abs(temps-t)>=pas)
    {
-      if (t<temps) {ajouterTemps(t+pas);
+      std::cout << "c" << std::endl;
+      if (t<temps) {ajouterTemps(temps-pas);
       }
       else {ajouterTemps(t-pas);
       }
@@ -78,8 +81,8 @@ Cinematique& Situation::getCinem (Planete* planete, double temps) //Fonction ren
    double t = tempsproche(temps);
    if (std::abs(t-temps)>pas)
    {
-      ajouterTemps(t);
+      ajouterTemps(temps);
    }
-   return Position[t][planete];
-
+   double d = tempsproche(t);
+   return Position[d][planete];
 }

@@ -8,7 +8,8 @@ Systeme_Solaire::Systeme_Solaire(double tInitial, std::map<Planete*, Cinematique
 {
    for (std::map<Planete*, Cinematique>::iterator it = sitInitial.begin() ; it != sitInitial.end() ; ++it)
       _planetes.push_back(it->first);
-   _depart = sitInitial.begin()->first;
+   _depart = NULL;
+   std::cout << "sys solaire crée" << std::endl;
 }
 Systeme_Solaire::~Systeme_Solaire()
 {
@@ -66,6 +67,8 @@ Planete* Systeme_Solaire::add_depart(Planete* planete)
 
 std::vector<Coord<3> > Systeme_Solaire::get_pos(Planete* planete)
 {
+   // POUR LE TEST : 
+   _situation.getCinem(planete, TEMPS_MAX);
    return _situation.getPosis(planete);
 }
 

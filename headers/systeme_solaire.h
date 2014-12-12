@@ -1,6 +1,7 @@
 #ifndef SYSTEME_SOLAIRE_H
 #define SYSTEME_SOLAIRE_H
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include "coord.h"

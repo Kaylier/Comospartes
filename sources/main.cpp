@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 
    doc << svg::Circle(svg::Point(0,0), 20, svg::Fill(svg::Color(255, 200, 0)));
    doc << vector_to_polyline(system.get_pos(ptest1));
-   doc << vector_to_polyline(system.get_pos(ptest2));
+   //doc << vector_to_polyline(system.get_pos(ptest2));
 
    //std::vector<Dynamique> best_trajectoire_ever = system.optimiser_trajet();
 
@@ -50,7 +50,7 @@ svg::Polyline vector_to_polyline(std::vector<Coord<3> > vect)
 {
    svg::Polyline res(svg::Stroke(1, svg::Color::White));
    for(int i=0, n=vect.size() ; i < n ; ++i)
-      res << svg::Point(vect[i][0]/10e10, vect[i][1]/10e10); 
+      res << svg::Point(vect[i][0]/10e7, vect[i][1]/10e7); 
    return res;
 }
 
