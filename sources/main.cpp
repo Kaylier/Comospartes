@@ -8,7 +8,6 @@ svg::Polyline vector_to_polyline(std::vector<Coord<3> > vect);
 
 int main(int argc, char** argv)
 {
-   //Planete* ptest1 = system.add_depart("ptest1", 5e10, 3e5);
    // Création du systeme
    std::map<Planete*, Cinematique> planetes; // conteneur des planetes
    Planete* ptest1 = new Planete("Sun", 9.906930564e20, 6.963e5);
@@ -17,9 +16,7 @@ int main(int argc, char** argv)
    planetes[ptest2] = Cinematique(4.114e9, -1.780e9, -5.816e7, 1.833e5, 4.337e5, -1.321e4);
 
    Systeme_Solaire system(TEMPS_MIN, planetes, 1./48);
-   // Génération de svg
-   svg::Document doc("coucou.svg", svg::Layout(svg::Dimensions(1024, 1024), svg::Layout::BottomLeft, 1, svg::Point(512, 512)));
-
+   system.set_depart(ptest1);
    /*
                    // nom       GM                      rayon       fixe=false
    system.add_planet("Soleil" , 1.3271244004193938e11 , 6.963e5   , true);
@@ -32,16 +29,22 @@ int main(int argc, char** argv)
    system.add_planet("Uranus" , 5793966               , 24973);
    system.add_planet("Neptune", 6835107               , 24342);
    */
-   
    // lancer calcul
+   
+   //std::vector<Dynamique> best_trajectoire_ever = system.optimiser_trajet();
+
+   // Génération de svg
+   svg::Document doc("coucou.svg", svg::Layout(svg::Dimensions(1024, 1024), svg::Layout::BottomLeft, 1, svg::Point(512, 512)));
 
    doc << svg::Circle(svg::Point(0,0), 20, svg::Fill(svg::Color(255, 200, 0)));
    doc << vector_to_polyline(system.get_pos(ptest1));
-   //doc << vector_to_polyline(system.get_pos(ptest2));
-
-   //std::vector<Dynamique> best_trajectoire_ever = system.optimiser_trajet();
+   doc << vector_to_polyline(system.get_pos(ptest2));
 
    doc.save();
+
+   // Libérations des planètes
+   delete ptest1;
+   delete ptest2;
    std::cout << "Lapin" << std::endl;
 	return 0;
 }
