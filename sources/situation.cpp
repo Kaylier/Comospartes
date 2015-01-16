@@ -11,15 +11,18 @@ Situation::Situation(double tInitial, std::map<Planete*, Cinematique> sitInitial
 
 void Situation::ajouterTemps(double temps)
 {
-      std::cout << "c2" << std::endl;
+   std::cout << "coucou" << std::endl;
+   std::cout << "temps = " << temps << std::endl;
    double t = tempsproche(temps);
-   std::cout << t << " et " << temps << std::endl;
    if(std::abs(temps-t)>=pas)
    {
-      std::cout << "c" << std::endl;
-      if (t<temps) {ajouterTemps(temps-pas);
+      if (t<temps) {
+         std::cout << "ajouter1 avec " << temps-pas << std::endl;
+         ajouterTemps(temps-pas);
       }
-      else {ajouterTemps(t-pas);
+      else {
+         std::cout << "ajouter2 avec " << temps-pas << std::endl;
+         ajouterTemps(temps+pas);
       }
    }
    else
@@ -41,7 +44,7 @@ double Situation::tempsproche (double temps)
    double t=0;
    for (std::map<double, std::map<Planete*, Cinematique> >::iterator it=Position.begin(); it!=Position.end(); it++)
       {
-        if ( std::abs(t-temps) > std::abs((it->first)-temps))
+         if ( std::abs(t-temps) > std::abs((it->first)-temps))
             {
                t=it->first;
             }
@@ -81,7 +84,9 @@ Cinematique& Situation::getCinem (Planete* planete, double temps) //Fonction ren
    double t = tempsproche(temps);
    if (std::abs(t-temps)>pas)
    {
+      std::cout << "ajouter avec " << temps-pas << std::endl;
       ajouterTemps(temps);
+      std::cout << "VICTOIRE !!!!!!!" << std::endl;
    }
    double d = tempsproche(t);
    return Position[d][planete];

@@ -10,8 +10,8 @@
 #include "objectif.h"
 #include "situation.h"
 
-#define TEMPS_MIN 2457023  // correspond au 1er janvier 2015
-#define TEMPS_MAX 2469807 // correspond au 1er janvier 2050, date limite
+#define TEMPS_MIN 0//2457023  // correspond au 1er janvier 2015
+#define TEMPS_MAX 496//2469807 // correspond au 1er janvier 2050, date limite
 
 class Systeme_Solaire
 {
