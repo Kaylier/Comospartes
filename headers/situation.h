@@ -1,6 +1,5 @@
 #ifndef SITUATION_H
 #define SITUATION_H
-#include <iostream>
 #include <map>
 #include "coord.h"
 #include "structs.h"

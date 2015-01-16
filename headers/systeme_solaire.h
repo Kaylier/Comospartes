@@ -1,7 +1,6 @@
 #ifndef SYSTEME_SOLAIRE_H
 #define SYSTEME_SOLAIRE_H
 
-#include <iostream>
 #include <string>
 #include <vector>
 #include "coord.h"
@@ -10,8 +9,8 @@
 #include "objectif.h"
 #include "situation.h"
 
-#define TEMPS_MIN 0//2457023  // correspond au 1er janvier 2015
-#define TEMPS_MAX 496//2469807 // correspond au 1er janvier 2050, date limite
+#define TEMPS_MIN 2457023  // correspond au 1er janvier 2015
+#define TEMPS_MAX 2469807 // correspond au 1er janvier 2050, date limite
 
 class Systeme_Solaire
 {
@@ -24,11 +23,15 @@ public:
 
 public:
    Systeme_Solaire();
-   Systeme_Solaire(double tInitial, std::map<Planete*, Cinematique> sitInital, double pasInitial=1./48);
+   Systeme_Solaire(double tInitial, std::map<Planete*, Cinematique> sitInital, double pasInitial);
    ~Systeme_Solaire();
 
    std::vector<Planete*> get_planets() const;
-   Planete* set_depart(Planete* planete);
+   //Planete* add_planet(Planete* planete);
+   //Planete* add_planet(std::string nom, double gm, double rayon);
+   Planete* add_depart(Planete* planete);
+   //Planete* add_depart(std::string nom, double gm, double rayon);
+   //void rmPlanet(Planete* planete);
 
    std::vector<Coord<3> > get_pos(Planete* planete);
 
