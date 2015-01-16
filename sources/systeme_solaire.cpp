@@ -4,6 +4,7 @@ Systeme_Solaire::Systeme_Solaire()
 {
    _depart = NULL;
 }
+
 Systeme_Solaire::Systeme_Solaire(double tInitial, std::map<Planete*, Cinematique> sitInitial, double pasInitial) : _situation(tInitial, sitInitial, pasInitial)
 {
    std::cout << "Création du systeme solaire..." << std::endl;
@@ -17,6 +18,7 @@ Systeme_Solaire::Systeme_Solaire(double tInitial, std::map<Planete*, Cinematique
    _depart = NULL;
    std::cout << "systeme solaire crée avec succés (" << _planetes.size() << " planetes)" << std::endl;
 }
+
 Systeme_Solaire::~Systeme_Solaire()
 {}
 
