@@ -4,68 +4,37 @@ Systeme_Solaire::Systeme_Solaire()
 {
    _depart = NULL;
 }
-
 Systeme_Solaire::Systeme_Solaire(double tInitial, std::map<Planete*, Cinematique> sitInitial, double pasInitial) : _situation(tInitial, sitInitial, pasInitial)
 {
-   _depart = sitInitial.begin()->first;
+   std::cout << "Création du systeme solaire..." << std::endl;
+   for (std::map<Planete*, Cinematique>::iterator it = sitInitial.begin() ; it != sitInitial.end() ; ++it)
+   {
+      _planetes.push_back(it->first);
+      std::cout << "\t Planete " << _planetes.back()->nom 
+                << "\tgm=" << _planetes.back()->gm
+                << "\trayon=" << _planetes.back()->rayon << std::endl;
+   }
+   _depart = NULL;
+   std::cout << "systeme solaire crée avec succés (" << _planetes.size() << " planetes)" << std::endl;
 }
-
 Systeme_Solaire::~Systeme_Solaire()
-{
-   for (int i=0 ; i < _planetes.size() ; ++i)
-      if (_planetes[i])
-         delete _planetes[i];
-   //if (_depart)
-   //   delete _depart;
-}
+{}
 
 std::vector<Planete*> Systeme_Solaire::get_planets() const
 {
    return _planetes;
 }
-/*Planete* Systeme_Solaire::add_planet(Planete* planete)
-{
-   _planetes.push_back(planete);
-   return planete;
-}*/
-/*Planete* Systeme_Solaire::add_planet(std::string nom, double gm, double rayon)
-{
-   Planete* planete = new Planete;
-   planete->nom = nom;
-   planete->gm = gm;
-   planete->rayon = rayon;
-   _planetes.push_back(planete);
-   return planete;
-}*/
-Planete* Systeme_Solaire::add_depart(Planete* planete)
+
+Planete* Systeme_Solaire::set_depart(Planete* planete)
 {
    _planetes.push_back(planete);
    _depart = planete;
    return planete;
 }
-/*Planete* Systeme_Solaire::add_depart(std::string nom, double gm, double rayon)
-{
-   Planete* planete = new Planete;
-   planete->nom = nom;
-   planete->gm = gm;
-   planete->rayon = rayon;
-   _planetes.push_back(planete);
-   _depart = planete;
-   return planete;
-}*/
-/*void Systeme_Solaire::rmPlanet(Planete* planete)
-{
-   for (int i=0 ; i < _planetes.size() ; ++i)
-      if (_planetes[i] == planete)
-      {
-         _planetes.erase(_planetes.begin()+i);
-         i--;
-      }
-}*/
-
 
 std::vector<Coord<3> > Systeme_Solaire::get_pos(Planete* planete)
 {
+   _situation.getCinem(planete, TEMPS_MAX);
    return _situation.getPosis(planete);
 }
 

@@ -24,16 +24,16 @@ Le programme se découpe en plusieurs 'modules' :
 * (Outil) Objets Cinématique et Dynamiques
 * Objectif
 * Situation
-* 
+
 ### Codé et non débugué
 * Fonction de calcul de trajectoire
-
-### En cours de codage
 * Enregistrement d'une image en svg
 
-### Non commencé
+### En cours de codage
 * Optimisation de la trajectoire
-* systeme de synchronisation avec la nasa ou l'ESA
+
+### Non commencé
+* systeme de synchronisation des positions avec base de donnée
 
 ## Avenir
 * Peut-être synchroniser régulièrement la position des planètes calculées avec une base de donnée (de l'ESA ou de la NASA) afin de gagner de la précision
