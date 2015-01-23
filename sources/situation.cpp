@@ -12,24 +12,24 @@ Situation::Situation(double tInitial, std::map<Planete*, Cinematique> sitInitial
 void Situation::ajouterTemps(double temps)
 {
    double t = tempsproche(temps);
-   if(std::abs(temps-t<pas))
-   {
-      if (t<temps) {ajouterTemps(t+pas);
-      }
-      else {ajouterTemps(t-pas);
-      }
-   }
-   else
+   while (std::abs(temps-t) > pas)
    {
       for (std::map<Planete*, Cinematique>::iterator it=Position[t].begin(); it!=Position[t].end();it++)
       {
           Planete* pactuelle = it->first;
           Cinematique nouvellecoord;
+          std::cout << "iterat " << &*Position.begin() << std::endl;
           nouvellecoord.position = (Position[t][pactuelle].position)+(Position[t][pactuelle].vitesse*pas);
-          nouvellecoord.vitesse = Position[t][pactuelle].vitesse+(getForce((Position[t][pactuelle].position),temps)*pas);
-          Position[temps][pactuelle]= nouvellecoord;
+          nouvellecoord.vitesse = Position[t][pactuelle].vitesse+(getForce((Position[t][pactuelle].position),t+pas)*pas);
+          std::cout << "Pos: " <<  (Position[t][pactuelle].position[0]) << std::endl;
+          Position[t+pas][pactuelle]= nouvellecoord;
+
+          std::cout << "Temps:" << t << "Planete:" << pactuelle->nom << " position: " << Position[t+pas][pactuelle].position[0] <<
+          " vitesse:" << nouvellecoord.vitesse[0] << std::endl;
       }
+      t=t+pas;
    }
+
 }
 
 
@@ -78,7 +78,7 @@ Cinematique& Situation::getCinem (Planete* planete, double temps) //Fonction ren
    double t = tempsproche(temps);
    if (std::abs(t-temps)>pas)
    {
-      ajouterTemps(t);
+      ajouterTemps(temps);
    }
    return Position[t][planete];
 
