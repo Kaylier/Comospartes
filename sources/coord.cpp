@@ -6,8 +6,12 @@ Coord<T>::Coord()
    val.resize(T, 0);
 }
 template<int T>
-Coord<T>::Coord(const Coord<T>& v) : val(v.val)
-{}
+Coord<T>::Coord(const Coord<T>& v)
+{
+   val.resize(T, 0);
+   for (int i=0 ; i < T ; ++i)
+      val[i] = v.val[i];
+}
 template<int T>
 Coord<T>::Coord(std::vector<double> v) : val(v)
 {
@@ -21,23 +25,23 @@ Coord<T>::~Coord()
 template<int T>
 Coord<T> Coord<T>::operator+(const Coord<T>& v) const
 {
-   Coord<T> res(*this);
+   Coord<T> res;
    for (int i=0 ; i < T ; ++i)
-      res.val[i] += v[i];
+      res.val[i] = val[i] + v[i];
    return res;
 }
 template<int T>
 Coord<T> Coord<T>::operator-(const Coord<T>& v) const
 {
-   Coord<T> res(*this);
+   Coord<T> res;
    for (int i=0 ; i < T ; ++i)
-      res.val[i] += v[i];
+      res.val[i] = val[i] - v[i];
    return res;
 }
 template<int T>
 Coord<T> Coord<T>::operator-() const
 {
-   Coord<T> res(*this);
+   Coord<T> res;
    for (int i=0 ; i < T ; ++i)
       res.val[i] = -res.val[i];
    return res;
@@ -51,19 +55,19 @@ double Coord<T>::operator*(const Coord<T>& v) const
    return res;
 }
 template<int T>
-Coord<T> Coord<T>::operator*(double i) const
+Coord<T> Coord<T>::operator*(double a) const
 {
-   Coord<T> res(*this);
+   Coord<T> res;
    for (int i=0 ; i < T ; ++i)
-      res.val[i] *= i;
+      res.val[i] = val[i] * a;
    return res;
 }
 template<int T>
-Coord<T> Coord<T>::operator/(double i) const
+Coord<T> Coord<T>::operator/(double a) const
 {
-   Coord<T> res(*this);
+   Coord<T> res;
    for (int i=0 ; i < T ; ++i)
-      res.val[i] /= i;
+      res.val[i] = val[i] / a;
    return res;
 }
 template<>
@@ -121,9 +125,8 @@ bool Coord<T>::operator!() const
 template<int T>
 Coord<T>& Coord<T>::operator=(const Coord<T> v)
 {
-   bool res = true;
-   for (int i=0 ; i < T && res; ++i)
-      res &= val[i] == v.val[i];
+   for (int i=0 ; i < T ; ++i)
+      val[i] = v.val[i];
    return *this;
 }
 template<int T>
@@ -168,7 +171,7 @@ Coord<3>& Coord<3>::operator^=(const Coord<3> v)
 template<int T>
 double Coord<T>::operator[](int i) const
 {
-   return (i<T)? val[i] : 0;
+   return (i>=0 && i<T)? val[i] : 0;
 }
 
 
@@ -224,7 +227,7 @@ template<int T>
 Coord<T> Coord<T>::unit(int i)
 {
    std::vector<double> v(T,0);
-   if (i < T)
+   if (i >= 0 && i < T)
       v[i] = 1;
    return Coord<T>(v);
 }

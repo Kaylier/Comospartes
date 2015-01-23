@@ -4,13 +4,13 @@ Systeme_Solaire::Systeme_Solaire()
 {
    _depart = NULL;
 }
-Systeme_Solaire::Systeme_Solaire(double tInitial, std::map<Planete*, Cinematique> sitInitial, double pasInitial) : _situation(tInitial, sitInitial, pasInitial)
+Systeme_Solaire::Systeme_Solaire(double tInitial, std::map<Planete*, Cinematique>& sitInitial, double pasInitial) : _situation(tInitial, sitInitial, pasInitial)
 {
    std::cout << "Création du systeme solaire..." << std::endl;
    for (std::map<Planete*, Cinematique>::iterator it = sitInitial.begin() ; it != sitInitial.end() ; ++it)
    {
       _planetes.push_back(it->first);
-      std::cout << "\t Planete " << _planetes.back()->nom 
+      std::cout << "\tPlanete " << _planetes.back()->nom 
                 << "\tgm=" << _planetes.back()->gm
                 << "\trayon=" << _planetes.back()->rayon << std::endl;
    }

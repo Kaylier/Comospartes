@@ -1,6 +1,8 @@
 #include <iostream>
+#include <map>
 #include <cmath>
 
+#include "../headers/structs.h"
 #include "../headers/systeme_solaire.h"
 #include "../headers/simple_svg_1.0.0.hpp"
 
@@ -14,7 +16,7 @@ int main(int argc, char** argv)
    Planete* ptest2 = new Planete("Neptune", 5.102380035072e16, 24766);
    planetes[ptest1] = Cinematique(4.129e5, -1.434e5, -2.023e4, 6.138e2, 7.752e2, -1.477e1);
    planetes[ptest2] = Cinematique(4.114e9, -1.780e9, -5.816e7, 1.833e5, 4.337e5, -1.321e4);
-
+   
    Systeme_Solaire system(TEMPS_MIN, planetes, 1./48);
    system.set_depart(ptest1);
    /*
@@ -51,9 +53,9 @@ int main(int argc, char** argv)
 
 svg::Polyline vector_to_polyline(std::vector<Coord<3> > vect)
 {
-   svg::Polyline res(svg::Stroke(1, svg::Color::White));
+   svg::Polyline res(svg::Stroke(1, svg::Color::Blue));
    for(int i=0, n=vect.size() ; i < n ; ++i)
-      res << svg::Point(vect[i][0]/10e7, vect[i][1]/10e7); 
+      res << svg::Point(vect[i][0]/10e4, vect[i][1]/10e4); 
    return res;
 }
 

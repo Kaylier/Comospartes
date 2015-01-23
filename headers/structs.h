@@ -1,14 +1,16 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
+#include <iostream>
 #include <string>
 #include "coord.h"
 
 struct Cinematique
 {
    Cinematique() : position(Coord<3>()), vitesse(Coord<3>()) {}
+   Cinematique(const Cinematique& cin) : position(cin.position), vitesse(cin.vitesse) {}
    Cinematique(Coord<3> pos, Coord<3> vit) : position(pos), vitesse(vit) {}
-   Cinematique(double x, double y, double z, double vx, double vy, double vz)
+   Cinematique(double x, double y, double z, double vx=0, double vy=0, double vz=0)
    {
       std::vector<double> pos;pos.push_back(x); pos.push_back(y);pos.push_back(z);
       std::vector<double> vit;vit.push_back(vx);vit.push_back(vy);vit.push_back(vz);
