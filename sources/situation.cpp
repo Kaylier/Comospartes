@@ -19,11 +19,13 @@ void Situation::ajouterTemps(double temps)
       {
           Planete* pactuelle = it->first;
           Cinematique nouvellecoord;
+          //std::cout << " POs: " << Position[t][pactuelle].position[0] << std::endl;
           nouvellecoord.position = (Position[t][pactuelle].position)+(Position[t][pactuelle].vitesse*pas);
           nouvellecoord.vitesse = Position[t][pactuelle].vitesse+(getForce((Position[t][pactuelle].position),t, pactuelle)*pas);
-          Position[t+pas][pactuelle]= nouvellecoord;
-          std::cout << " Temps: " << t << " Planete: " << pactuelle->nom << " position: " << Position[t][pactuelle].position[0] <<
-          " vitesse: " << nouvellecoord.vitesse[0] << std::endl << std::endl;
+          // std::cout << " POs2: " << Position[t][pactuelle].position[0] << std::endl;
+          Position[t+pas].insert(std::make_pair(pactuelle,nouvellecoord)   );
+          //std::cout << " Temps: " << t << " Planete: " << pactuelle->nom << " position: " << Position[t+pas][pactuelle].position[0] <<
+          //" vitesse: " << nouvellecoord.vitesse[0] << std::endl << std::endl;
       }
        t=(t+pas);
    }
@@ -51,11 +53,11 @@ Coord<3> Situation::getForce (Coord<3> objet, double temps, Planete* plan)
    Coord<3> distance;
    for (std::map<Planete*, Cinematique>::iterator it=Position[temps].begin(); it!=Position[temps].end();it++)
    {
-
          Planete* pactuelle = it->first;
-         distance = (Position[temps][pactuelle].position-=objet);
+
             if (plan == NULL || pactuelle != plan)
             {
+               distance = (Position[temps][pactuelle].position-objet);
                VectForce += ((distance.normalize()*pactuelle->gm)/distance.norme2());
             }
 
@@ -70,10 +72,9 @@ std::vector < Coord<3> > Situation::getPosis (Planete* planete)
     for (std::map<double, std::map<Planete*, Cinematique> >::iterator it=Position.begin(); it!=Position.end(); it++)
       {
        t=it->first;
-
        vectpos.push_back(Position[t][planete].position);
-       std::cout << "planete = " << Position[t].find(planete)->second.position[0] << std::endl;
-       std::cout << " " << Position[t][planete].position[0] << std::endl;
+       //std::cout << "planete = " << Position[t].find(planete)->second.position[0] << std::endl;
+       //std::cout << " " << Position[t][lanete].position[0] << std::endl;
       }
 
       return vectpos;

@@ -39,7 +39,7 @@ int main(int argc, char** argv)
    svg::Document doc("coucou.svg", svg::Layout(svg::Dimensions(1024, 1024), svg::Layout::BottomLeft, 1, svg::Point(512, 512)));
 
    doc << svg::Circle(svg::Point(0,0), 20, svg::Fill(svg::Color(255, 200, 0)));
-   //doc << vector_to_polyline(system.get_pos(ptest1));
+   doc << vector_to_polyline(system.get_pos(ptest1));
    doc << vector_to_polyline(system.get_pos(ptest2));
 
    doc.save();
@@ -56,7 +56,7 @@ svg::Polyline vector_to_polyline(std::vector<Coord<3> > vect)
    svg::Polyline res(svg::Stroke(1, svg::Color::Blue));
    for(int i=0, n=vect.size() ; i < n ; i++)
       {res << svg::Point(vect[i][0]/10e7, vect[i][1]/10e7);
-         std::cout << vect[i][0] << "  " << vect[i][1] << std::endl;}
-   return res;
+       //  std::cout << vect[i][0] << "  " << vect[i][1] << std::endl;
+   }return res;
 }
 
