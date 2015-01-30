@@ -19,18 +19,18 @@ void Situation::ajouterTemps(double temps)
       {
           Planete* pactuelle = it->first;
           Cinematique nouvellecoord;
-          std::cout << "iterat " << &*Position[t].begin() << std::endl;
-          nouvellecoord.position = (Position[t][pactuelle].position)+(Position[t][pactuelle].vitesse*pas);
-          nouvellecoord.vitesse = Position[t][pactuelle].vitesse+(getForce((Position[t][pactuelle].position),t+pas, pactuelle)*pas);
-          std::cout << "Pos: " <<  Position[t][pactuelle].position[0] << std::endl;
-          Position[t+pas][pactuelle]= nouvellecoord;
+          std::cout << "Pos3: " <<  Position[t][pactuelle].position  [0] << std::endl;
 
+          nouvellecoord.position = (Position[t][pactuelle].position)+(Position[t][pactuelle].vitesse*pas);
+          std::cout << "Pos: " <<  nouvellecoord.position[0] << " v*p " << Position[t][pactuelle].vitesse[0]*pas << std::endl;
+          nouvellecoord.vitesse = Position[t][pactuelle].vitesse+(getForce((Position[t][pactuelle].position),t, pactuelle)*pas);
+
+          Position[t+pas][pactuelle]= nouvellecoord;
 
           std::cout << " Temps: " << t << " Planete: " << pactuelle->nom << " position: " << Position[t+pas][pactuelle].position[0] <<
           " vitesse: " << nouvellecoord.vitesse[0] << std::endl << std::endl;
       }
-
-      t=t+pas;
+       t=(t+pas);
    }
 
 }
