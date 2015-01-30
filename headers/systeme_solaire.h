@@ -8,7 +8,7 @@
 #include "structs.h"
 
 #define TEMPS_MIN 0//2457023  // correspond au 1er janvier 2015
-#define TEMPS_MAX 1//2469807 // correspond au 1er janvier 2050, date limite
+#define TEMPS_MAX 400//2469807 // correspond au 1er janvier 2050, date limite
 
 #define GM_TYPE 10E18
 #define ERR_DT (0.05 * sqrt(GM_TYPE))
