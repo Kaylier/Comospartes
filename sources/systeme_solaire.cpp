@@ -10,7 +10,7 @@ Systeme_Solaire::Systeme_Solaire(double tInitial, std::map<Planete*, Cinematique
    for (std::map<Planete*, Cinematique>::iterator it = sitInitial.begin() ; it != sitInitial.end() ; ++it)
    {
       _planetes.push_back(it->first);
-      std::cout << "\tPlanete " << _planetes.back()->nom 
+      std::cout << "\tPlanete " << _planetes.back()->nom
                 << "\tgm=" << _planetes.back()->gm
                 << "\trayon=" << _planetes.back()->rayon << std::endl;
    }
@@ -41,7 +41,7 @@ std::vector<Coord<3> > Systeme_Solaire::get_pos(Planete* planete)
 
 Dynamique& Systeme_Solaire::actualiser_dynamique(Dynamique& dyn)
 {
-   Coord<3> force = _situation.getForce(dyn.position, dyn.temps);
+   Coord<3> force = _situation.getForce(dyn.position, dyn.temps, NULL);
    // getForce doit être très rapide
    double dt = TEMPS_MIN;
    // ici, on peut peut-etre optimiser le TEMPS_MIN en un temps plus long si le satellite est loins des astres, cad si la force est faible
@@ -90,7 +90,7 @@ double Systeme_Solaire::estimer_trajectoire(Dynamique condition_initiale)
 
    double best_indice = _objectif(satellite);
    double new_indice = 0;
-   
+
    bool stop = false;
    while (!stop)
    {
@@ -100,7 +100,7 @@ double Systeme_Solaire::estimer_trajectoire(Dynamique condition_initiale)
          best_indice = new_indice;
 
       // Si on doit récupérer les coordonées du trajet, il faut les intercepter ici
-      
+
       if (satellite.temps > TEMPS_MAX || new_indice > _objectif.pire_indice())
          stop = true;
    }

@@ -8,7 +8,7 @@
 #include "structs.h"
 
 #define TEMPS_MIN 0//2457023  // correspond au 1er janvier 2015
-#define TEMPS_MAX 1//2469807 // correspond au 1er janvier 2050, date limite
+#define TEMPS_MAX 0.08//2469807 // correspond au 1er janvier 2050, date limite
 
 #include "objectif.h"
 #include "situation.h"
