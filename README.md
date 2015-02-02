@@ -24,10 +24,11 @@ Le programme se découpe en plusieurs 'modules' :
 * (Outil) Objets Cinématique et Dynamiques
 * Objectif
 * Situation
+* Calcul de trajectoire des planetes
+* Enregistrement d'une image en svg
 
 ### Codé et non débugué
 * Fonction de calcul de trajectoire
-* Enregistrement d'une image en svg
 
 ### En cours de codage
 * Optimisation de la trajectoire
