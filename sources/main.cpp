@@ -5,14 +5,14 @@
 #include "../headers/structs.h"
 #include "../headers/systeme_solaire.h"
 #include "../headers/simple_svg_1.0.0.hpp"
-#include "../headers/interface.h"
 
 svg::Polyline vector_to_polyline(std::vector<Coord<3> > vect);
+svg::Polyline dynamique_to_polyline(std::vector<Dynamique > vect);
 
 int main(int argc, char** argv)
 {
 
-   // CrÃ©ation du systeme
+   // Création du systeme
    std::map<Planete*, Cinematique> planetes; // conteneur des planetes
   /* Planete* Soleil  = new Planete("Soleil" ,       9.906930564e20  , 6.963e5);
    Planete* Mercure = new Planete("Mercure",      164468670566400  ,  2440);
@@ -42,7 +42,7 @@ int main(int argc, char** argv)
    system.add_planet("Soleil" , 1.3271244004193938e11 , 6.963e5   , true);
    system.add_depart("Terre"  , 398600.440            , 6371.01);
    system.add_planet("Mercure", 22032.09              , 2440);
-   system.add_planet("VÃ©nus"  , 324858.63             , 6051.8);
+   system.add_planet("Vénus"  , 324858.63             , 6051.8);
    system.add_planet("Mars"   , 42828.3               , 3389.9);
    system.add_planet("Jupiter", 126686511             , 66854);
    system.add_planet("Saturne", 37931207.8            , 54364);
@@ -53,35 +53,47 @@ int main(int argc, char** argv)
 
    //std::vector<Dynamique> best_trajectoire_ever = system.optimiser_trajet();
 
-   // GÃ©nÃ©ration de svg
+   // Génération de svg
    svg::Document doc("coucou.svg", svg::Layout(svg::Dimensions(1024, 1024), svg::Layout::BottomLeft, 1, svg::Point(512, 512)));
 
-   /*doc << svg::Circle(svg::Point(0,0), 20, svg::Fill(svg::Color(255, 200, 0)));
-   doc << vector_to_polyline(system.get_pos(Soleil));
-   doc << vector_to_polyline(system.get_pos(Mercure));
-   doc << vector_to_polyline(system.get_pos(Venus));
-   doc << vector_to_polyline(system.get_pos(Terre));
-   doc << vector_to_polyline(system.get_pos(Mars));
-   doc << vector_to_polyline(system.get_pos(Jupiter));
-   doc << vector_to_polyline(system.get_pos(Saturne));
-   doc << vector_to_polyline(system.get_pos(Uranus));
-   doc << vector_to_polyline(system.get_pos(Neptune));
+   /*
 
-   doc.save();
+   int continuer = 1;
+   int x=0, y=0, z=0, vx=0, vy=0, vz=0;
+   // Lancement du satellite
+   while (continuer==1)
+   {
+      doc << svg::Circle(svg::Point(0,0), 20, svg::Fill(svg::Color(255, 200, 0)));
+      doc << vector_to_polyline(system.get_pos(Soleil));
+      doc << vector_to_polyline(system.get_pos(Mercure));
+      doc << vector_to_polyline(system.get_pos(Venus));
+      doc << vector_to_polyline(system.get_pos(Terre));
+      doc << vector_to_polyline(system.get_pos(Mars));
+      doc << vector_to_polyline(system.get_pos(Jupiter));
+      doc << vector_to_polyline(system.get_pos(Saturne));
+      doc << vector_to_polyline(system.get_pos(Uranus));
+      doc << vector_to_polyline(system.get_pos(Neptune));
+      std::cout << "Quelles sont les coordonees du satellite? (x,y,z/vx,vy,vz)" << std::endl;
+      std::cin >> x >> y >> z >> vx >> vy >> vz;
+      std::cout << "Voulez-vous lancer un nouveau satellite (Y:1/N:0) " << std::endl;
+      std::cin >> continuer;
+      doc << dynamique_to_polyline(system.calculer_trajectoire(Dynamique(TEMPS_MIN,x,y,z, vx,vy,vz)));
+      doc.save();
+   }
 
-   // LibÃ©rations des planÃ¨tes
+
+   // Libérations des planètes
    delete Soleil;
    delete Mercure;
    delete Venus;
-   delete Terre;
-   delete Mars;
+   delete Terre;     delete Mars;
    delete Jupiter;
    delete Saturne;
    delete Uranus;
    delete Neptune;*/
 
 
-   demanderlancement();
+
    std::cout << "Lapin" << std::endl;
 	return 0;
 }
@@ -95,5 +107,16 @@ svg::Polyline vector_to_polyline(std::vector<Coord<3> > vect)
    }return res;
 
 
+}
+
+svg::Polyline dynamique_to_polyline(std::vector<Dynamique > dyn)
+{
+   svg::Polyline res(svg::Stroke(1, svg::Color::Red));
+   for(int i=0, n=dyn.size() ; i < n ; i+=10)
+   {
+      res << svg::Point(dyn[i].position[0]/10e5, dyn[i].position[1]/10e5);
+      //std::cout << "sat : " << dyn[i].position[0] << ", " << dyn[i].position[1] << std::endl;
+   }
+   return res;
 }
 

@@ -2,7 +2,7 @@
 #define INTERFACE_H
 #include <string>
 
-void demanderlancement ();
+*int demanderlancement ();
 
 
 #endif

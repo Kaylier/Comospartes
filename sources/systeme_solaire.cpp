@@ -46,7 +46,7 @@ Dynamique& Systeme_Solaire::actualiser_dynamique(Dynamique& dyn)
    double dt = ERR_DT / sqrt(force.norme() * dyn.vitesse.norme2());
    // ici, on peut peut-etre optimiser le TEMPS_MIN en un temps plus long si le satellite est loins des astres, cad si la force est faible
    //double dt = ERR_DT / sqrt(force.norme() * dyn.vitesse.norme2());
-   double dt = PAS_MIN;
+   dt = PAS_MIN;
    if (dt < PAS_MIN)
       dt = PAS_MIN;
    else if (dt > PAS_MAX)
