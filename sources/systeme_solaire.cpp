@@ -41,10 +41,15 @@ std::vector<Coord<3> > Systeme_Solaire::get_pos(Planete* planete)
 
 Dynamique& Systeme_Solaire::actualiser_dynamique(Dynamique& dyn)
 {
-   Coord<3> force = _situation.getForce(dyn.position, dyn.temps, NULL);
-   //double dt = TEMPS_MIN;
-   double dt = ERR_DT / sqrt(force.norme() * dyn.vitesse.norme2());
+   Coord<3> force = _situation.getForce(dyn.position, _situation.tempsproche(dyn.temps), NULL);
+   //double dt = PAS_MIN;
    // ici, on peut peut-etre optimiser le TEMPS_MIN en un temps plus long si le satellite est loins des astres, cad si la force est faible
+   //double dt = ERR_DT / sqrt(force.norme() * dyn.vitesse.norme2());
+   double dt = PAS_MIN;
+   if (dt < PAS_MIN)
+      dt = PAS_MIN;
+   else if (dt > PAS_MAX)
+      dt = PAS_MAX;
    dyn.vitesse += force*dt;
    dyn.position += dyn.vitesse*dt;
    dyn.temps += dt;
