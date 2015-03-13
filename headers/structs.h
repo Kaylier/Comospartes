@@ -23,6 +23,17 @@ struct Cinematique
 
 struct Dynamique
 {
+   Dynamique() : position(Coord<3>()), vitesse(Coord<3>()), temps(0) {}
+   Dynamique(const Dynamique& dyn) : position(dyn.position), vitesse(dyn.vitesse), temps(dyn.temps) {}
+   Dynamique(Coord<3> pos, Coord<3> vit, double tps) : position(pos), vitesse(vit), temps(tps) {}
+   Dynamique(double tps, double x, double y, double z, double vx=0, double vy=0, double vz=0)
+   {
+      temps = tps;
+      std::vector<double> pos;pos.push_back(x); pos.push_back(y);pos.push_back(z);
+      std::vector<double> vit;vit.push_back(vx);vit.push_back(vy);vit.push_back(vz);
+      position = pos;
+      vitesse = vit;
+   }
    Coord<3> position;
    Coord<3> vitesse;
    double temps;
