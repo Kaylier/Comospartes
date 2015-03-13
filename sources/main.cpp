@@ -11,7 +11,7 @@ svg::Polyline dynamique_to_polyline(std::vector<Dynamique > vect);
 
 int main(int argc, char** argv)
 {
-   // CrÃ©ation du systeme
+   // Création du systeme
    std::map<Planete*, Cinematique> planetes; // conteneur des planetes
    Planete* Soleil  = new Planete("Soleil" ,       9.906930564e20  , 6.963e5);
    Planete* Mercure = new Planete("Mercure",      164468670566400  ,  2440);
@@ -54,17 +54,20 @@ int main(int argc, char** argv)
       //doc << vector_to_polyline(system.get_pos(Uranus));
       //doc << vector_to_polyline(system.get_pos(Neptune));
       
-      
       // Lancement du satellite
-      doc << dynamique_to_polyline(system.calculer_trajectoire(Dynamique(TEMPS_MIN, 6300, 0, 0, 1000, 0, 0)));
-
+      int x=0, y=0, z=0, vx=0, vy=0, vz=0;
+      std::cout << "Quelles sont les coordonees du satellite? (x,y,z/vx,vy,vz)" << std::endl;
+      std::cin >> x >> y >> z >> vx >> vy >> vz;
+      std::cout << "Voulez-vous lancer un nouveau satellite (Y:1/N:0) " << std::endl;
+      std::cin >> continuer;
+      doc << dynamique_to_polyline(system.calculer_trajectoire(Dynamique(TEMPS_MIN,x,y,z, vx,vy,vz)));
       doc.save();
    }
 
    // lancer calcul
    //std::vector<Dynamique> best_trajectoire_ever = system.optimiser_trajet();
-
-   // LibÃ©rations des planÃ¨tes
+   
+   // Libérations des planètes
    delete Soleil;
    delete Mercure;
    delete Venus;
