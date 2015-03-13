@@ -36,29 +36,33 @@ int main(int argc, char** argv)
    Systeme_Solaire system(TEMPS_MIN, planetes, 1./96);
    system.set_depart(Soleil);
 
-   // lancer calcul
 
-   //std::vector<Dynamique> best_trajectoire_ever = system.optimiser_trajet();
-
-   // Génération de svg
+   // Préparation du svg
    svg::Document doc("coucou.svg", svg::Layout(svg::Dimensions(1024, 1024), svg::Layout::BottomLeft, 1, svg::Point(512, 512)));
 
-   doc << svg::Circle(svg::Point(0,0), 20, svg::Fill(svg::Color(255, 200, 0)));
-   doc << vector_to_polyline(system.get_pos(Soleil));
-   doc << vector_to_polyline(system.get_pos(Mercure));
-   doc << vector_to_polyline(system.get_pos(Venus));
-   doc << vector_to_polyline(system.get_pos(Terre));
-   doc << vector_to_polyline(system.get_pos(Mars));
-   //doc << vector_to_polyline(system.get_pos(Jupiter));
-   //doc << vector_to_polyline(system.get_pos(Saturne));
-   //doc << vector_to_polyline(system.get_pos(Uranus));
-   //doc << vector_to_polyline(system.get_pos(Neptune));
-   
-   // Lancement du satellite
-   doc << dynamique_to_polyline(system.calculer_trajectoire(Dynamique(TEMPS_MIN, 6300, 0, 0, 1000, 0, 0)));
+   bool continuer = true;
+   while (continuer)
+   {
+      doc << svg::Circle(svg::Point(0,0), 20, svg::Fill(svg::Color(255, 200, 0)));
+      doc << vector_to_polyline(system.get_pos(Soleil));
+      doc << vector_to_polyline(system.get_pos(Mercure));
+      doc << vector_to_polyline(system.get_pos(Venus));
+      doc << vector_to_polyline(system.get_pos(Terre));
+      doc << vector_to_polyline(system.get_pos(Mars));
+      //doc << vector_to_polyline(system.get_pos(Jupiter));
+      //doc << vector_to_polyline(system.get_pos(Saturne));
+      //doc << vector_to_polyline(system.get_pos(Uranus));
+      //doc << vector_to_polyline(system.get_pos(Neptune));
+      
+      
+      // Lancement du satellite
+      doc << dynamique_to_polyline(system.calculer_trajectoire(Dynamique(TEMPS_MIN, 6300, 0, 0, 1000, 0, 0)));
 
+      doc.save();
+   }
 
-   doc.save();
+   // lancer calcul
+   //std::vector<Dynamique> best_trajectoire_ever = system.optimiser_trajet();
 
    // Libérations des planètes
    delete Soleil;
