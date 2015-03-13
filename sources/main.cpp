@@ -7,6 +7,7 @@
 #include "../headers/simple_svg_1.0.0.hpp"
 
 svg::Polyline vector_to_polyline(std::vector<Coord<3> > vect);
+svg::Polyline dynamique_to_polyline(std::vector<Dynamique > vect);
 
 int main(int argc, char** argv)
 {
@@ -91,5 +92,16 @@ svg::Polyline vector_to_polyline(std::vector<Coord<3> > vect)
    }return res;
 
 
+}
+
+svg::Polyline dynamique_to_polyline(std::vector<Dynamique > dyn)
+{
+   svg::Polyline res(svg::Stroke(1, svg::Color::Red));
+   for(int i=0, n=dyn.size() ; i < n ; i+=10)
+   {
+      res << svg::Point(dyn[i].position[0]/10e5, dyn[i].position[1]/10e5);
+      //std::cout << "sat : " << dyn[i].position[0] << ", " << dyn[i].position[1] << std::endl;
+   }
+   return res;
 }
 
