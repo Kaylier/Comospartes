@@ -8,7 +8,7 @@
 #include "structs.h"
 
 #define TEMPS_MIN 2457023.5//2457023  // correspond au 1er janvier 2015
-#define TEMPS_MAX 2458807 //  2469807 // correspond au 1er janvier 2050, date limite
+#define TEMPS_MAX 2457307 //  2469807 // correspond au 1er janvier 2050, date limite
 
 #define PAS_MIN   1./24/6 // 10 min
 #define PAS_MAX   1./2 // 12h
