@@ -36,12 +36,14 @@ void Situation::ajouterTemps(double temps)
 double Situation::tempsproche (double temps)
 {
    double t=0;
-   for (std::map<double, std::map<Planete*, Cinematique> >::iterator it=Position.begin(); it!=Position.end(); it++)
+   std::map<double, std::map<Planete*, Cinematique> >::iterator it=Position.begin();
+   while((std::abs(t-temps) <= std::abs((it->first)-temps))&& (it!=Position.end()))
       {
         if ( std::abs(t-temps) > std::abs((it->first)-temps))
             {
                t=it->first;
             }
+            it++;
       }
    return t;
 }

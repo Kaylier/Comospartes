@@ -5,14 +5,16 @@
 #include "../headers/structs.h"
 #include "../headers/systeme_solaire.h"
 #include "../headers/simple_svg_1.0.0.hpp"
+#include "../headers/interface.h"
 
 svg::Polyline vector_to_polyline(std::vector<Coord<3> > vect);
 
 int main(int argc, char** argv)
 {
+
    // Création du systeme
    std::map<Planete*, Cinematique> planetes; // conteneur des planetes
-   Planete* Soleil  = new Planete("Soleil" ,       9.906930564e20  , 6.963e5);
+  /* Planete* Soleil  = new Planete("Soleil" ,       9.906930564e20  , 6.963e5);
    Planete* Mercure = new Planete("Mercure",      164468670566400  ,  2440);
    Planete* Venus   = new Planete("Venus"  ,     2425056678604800  ,  6051.8);
    Planete* Terre   = new Planete("Terre"  ,     2975536340582400  ,  6371.01);
@@ -30,10 +32,10 @@ int main(int argc, char** argv)
    planetes[Jupiter] = Cinematique(-5.57510e8 , 5.67464e8, 1.01069e7,-8.18693e5,-7.37880e5, 2.13898e4);
    planetes[Saturne] = Cinematique(-8.08623e8 ,-1.24915e9, 5.39015e7, 6.54975e5,-4.55960e5,-1.80870e4);
    planetes[Uranus]  = Cinematique( 2.88822e9 , 7.85465e8,-3.45006e7,-1.58703e5, 5.40334e5, 4.04469e3);
-   planetes[Neptune] = Cinematique(   4.114e9 ,  -1.780e9,  -5.816e7,   1.833e5,   4.337e5,  -1.321e4);
+   planetes[Neptune] = Cinematique(   4.114e9 ,  -1.780e9,  -5.816e7,   1.833e5,   4.337e5,  -1.321e4);*/
 
    Systeme_Solaire system(TEMPS_MIN, planetes, 1./96);
-   system.set_depart(Soleil);
+   //system.set_depart(Soleil);
 
    /*
                    // nom       GM                      rayon       fixe=false
@@ -54,7 +56,7 @@ int main(int argc, char** argv)
    // Génération de svg
    svg::Document doc("coucou.svg", svg::Layout(svg::Dimensions(1024, 1024), svg::Layout::BottomLeft, 1, svg::Point(512, 512)));
 
-   doc << svg::Circle(svg::Point(0,0), 20, svg::Fill(svg::Color(255, 200, 0)));
+   /*doc << svg::Circle(svg::Point(0,0), 20, svg::Fill(svg::Color(255, 200, 0)));
    doc << vector_to_polyline(system.get_pos(Soleil));
    doc << vector_to_polyline(system.get_pos(Mercure));
    doc << vector_to_polyline(system.get_pos(Venus));
@@ -76,8 +78,10 @@ int main(int argc, char** argv)
    delete Jupiter;
    delete Saturne;
    delete Uranus;
-   delete Neptune;
+   delete Neptune;*/
 
+
+   demanderlancement();
    std::cout << "Lapin" << std::endl;
 	return 0;
 }
